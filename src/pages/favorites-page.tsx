@@ -1,5 +1,6 @@
 import Header from '../components/header';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../const';
 
 function FavoritesPage(): JSX.Element {
   return (
@@ -19,7 +20,7 @@ function FavoritesPage(): JSX.Element {
         </div>
       </main>
       <footer className="footer">
-        <Link className="footer__logo-link" to="/">
+        <Link className="footer__logo-link" to={AppRoute.Root}>
           <img
             className="footer__logo"
             src="img/logo.svg"

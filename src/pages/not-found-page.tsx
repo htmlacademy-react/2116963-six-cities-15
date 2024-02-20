@@ -4,7 +4,7 @@ function NotFoundPage(): JSX.Element {
   return (
     <>
       <h1>404. Page not found</h1>
-      <Link to="/">Вернуться на главную</Link>
+      <Link to="/">Go to homepage</Link>
     </>
   );
 }

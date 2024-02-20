@@ -10,7 +10,7 @@ function Header(): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link className={`header__logo-link${currentPath === AppRoute.Root ? ' header__logo-link--active' : ''}`} to="/">
+            <Link className={`header__logo-link${currentPath === AppRoute.Root ? ' header__logo-link--active' : ''}`} to={AppRoute.Root}>
               <img
                 className="header__logo"
                 src="img/logo.svg"
