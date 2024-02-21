@@ -1,5 +1,6 @@
 import Card from '../components/card';
 import Header from '../components/header';
+import { Helmet } from 'react-helmet-async';
 
 type MainPageProps = {
   placesCount: number;
@@ -15,6 +16,9 @@ for (let i = 0; i < CARD_AMOUNT; i++) {
 function MainPage({ placesCount }: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>

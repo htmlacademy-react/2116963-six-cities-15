@@ -1,9 +1,13 @@
 import Header from '../components/header';
 import Card from '../components/card';
+import { Helmet } from 'react-helmet-async';
 
 function OfferPage(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities. Offer.</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
@@ -179,9 +183,9 @@ function OfferPage(): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <Card/>
-              <Card/>
-              <Card/>
+              <Card />
+              <Card />
+              <Card />
             </div>
           </section>
         </div>
