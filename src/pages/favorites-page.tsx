@@ -1,6 +1,5 @@
 import Header from '../components/header';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../const';
+import Footer from '../components/footer';
 import { Helmet } from 'react-helmet-async';
 
 function FavoritesPage(): JSX.Element {
@@ -23,17 +22,7 @@ function FavoritesPage(): JSX.Element {
           </section>
         </div>
       </main>
-      <footer className="footer">
-        <Link className="footer__logo-link" to={AppRoute.Root}>
-          <img
-            className="footer__logo"
-            src="img/logo.svg"
-            alt="6 cities logo"
-            width={64}
-            height={33}
-          />
-        </Link>
-      </footer>
+      <Footer />
     </div>
   );
 }
