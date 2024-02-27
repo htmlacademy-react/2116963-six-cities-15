@@ -1,6 +1,29 @@
-import type { Offer } from '../types';
+import type { Offer } from '../types/offer';
 
 export const offers: Offer[] = [
+  {
+    'id': 'f644d71b-def4-4a05-9878-f557b80f3ae0',
+    'title': 'Wood and stone place',
+    'type': 'hotel',
+    'price': 409,
+    'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.868610000000004,
+      'longitude': 2.342499,
+      'zoom': 16
+    },
+    'isFavorite': true,
+    'isPremium': true,
+    'rating': 3
+  },
   {
     'id': 'd09326d8-14a2-40f4-bdff-e534c97efff0',
     'title': 'Perfectly located Castro',
@@ -20,7 +43,7 @@ export const offers: Offer[] = [
       'longitude': 4.911976,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 4.9
   },
@@ -66,7 +89,7 @@ export const offers: Offer[] = [
       'longitude': 4.9099759999999995,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 4.9
   },

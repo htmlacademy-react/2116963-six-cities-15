@@ -1,10 +1,12 @@
+export type CitiesType = 'Paris'| 'Cologne'| 'Brussels'| 'Amsterdam'| 'Hamburg'| 'Dusseldorf';
+
 export type Offer = {
   id: string;
   title: string;
   type: string;
   price: number;
   city: {
-      name: string;
+      name: CitiesType;
       location: {
           latitude: number;
           longitude: number;

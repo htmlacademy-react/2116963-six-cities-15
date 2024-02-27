@@ -1,8 +1,13 @@
 import Header from '../components/header';
 import Card from '../components/card';
 import { Helmet } from 'react-helmet-async';
+import type { Offer } from '../types/offer';
 
-function OfferPage(): JSX.Element {
+type OfferPageProps = {
+  offers: Offer[];
+};
+
+function OfferPage({ offers }: OfferPageProps): JSX.Element {
   return (
     <div className="page">
       <Helmet>
@@ -183,9 +188,7 @@ function OfferPage(): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <Card />
-              <Card />
-              <Card />
+              {offers.map((offer: Offer) => <Card key={offer.id} offer={offer} />)}
             </div>
           </section>
         </div>
