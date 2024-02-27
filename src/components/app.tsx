@@ -8,6 +8,7 @@ import FavoritesPage from '../pages/favorites-page';
 import OfferPage from '../pages/offer-page';
 import PrivateRoute from './private-route';
 import type { Offer } from '../types/offer';
+import ScrollToTop from './scroll-to-top';
 
 type AppProps = {
   placesCount: number;
@@ -18,6 +19,7 @@ function App({ placesCount, offers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route
             path={AppRoute.Root}

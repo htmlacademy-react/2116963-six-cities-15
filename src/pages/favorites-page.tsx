@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet-async';
 import type { Offer, CitiesType } from '../types/offer';
 import { Cities } from '../const';
 import Card from '../components/card';
-import { useState } from 'react';
 import classNames from 'classnames';
 
 type FavoritesPageProps = {
@@ -23,7 +22,7 @@ const favoritesEmpty = (
   </section>
 );
 
-function FavoritesLocation({ city, offers }: { city: CitiesType; offers: Offer[] }): JSX.Element {
+function FavoritesLocation({ city, offerByCity }: { city: CitiesType; offerByCity: Offer[] }): JSX.Element {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -34,18 +33,18 @@ function FavoritesLocation({ city, offers }: { city: CitiesType; offers: Offer[]
         </div>
       </div>
       <div className="favorites__places">
-        {offers.map((offer) => <Card key={offer.id} offer={offer} />)}
+        {offerByCity.map((offer) => <Card key={offer.id} offer={offer} />)}
       </div>
     </li>
   );
 }
 
-function Favorites({ favorites }: { favorites: Map<CitiesType, Offer[]> }): JSX.Element {
+function Favorites({ favorites }: { favorites: Offer[] }): JSX.Element {
   function renderFavoritesLocations(): (JSX.Element | undefined)[] {
-    return [...favorites.keys()].map((city) => {
-      const offers = favorites.get(city);
-      if (offers?.length) {
-        return <FavoritesLocation key={city} city={city} offers={offers} />;
+    return Cities.map((city) => {
+      const offerByCity = favorites.filter((offer) => offer.city.name === city);
+      if (offerByCity.length) {
+        return <FavoritesLocation key={city} city={city} offerByCity={offerByCity} />;
       }
     });
   }
@@ -62,17 +61,7 @@ function Favorites({ favorites }: { favorites: Map<CitiesType, Offer[]> }): JSX.
 }
 
 function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
-  const [isEmpty, setIsEmpty] = useState(true);
-
-  const favorites = new Map(Cities.map((item) => [item, [] as Offer[]]));
-  offers.forEach((offer) => {
-    if (offer.isFavorite) {
-      if (isEmpty) {
-        setIsEmpty(false);
-      }
-      favorites.get(offer.city.name)?.push(offer);
-    }
-  });
+  const favorites = offers.filter((offer) => offer.isFavorite);
 
   return (
     <div className="page page--favorites-empty">
@@ -80,9 +69,9 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
         <title>6 cities. Favorites.</title>
       </Helmet>
       <Header />
-      <main className={classNames('page__main page__main--favorites', {'page__main--favorites-empty': isEmpty})}>
+      <main className={classNames('page__main page__main--favorites', { 'page__main--favorites-empty': favorites.length })}>
         <div className="page__favorites-container container">
-          {isEmpty ? favoritesEmpty : <Favorites favorites={favorites} />}
+          {favorites.length ? <Favorites favorites={favorites} /> : favoritesEmpty}
         </div>
       </main>
       <Footer />

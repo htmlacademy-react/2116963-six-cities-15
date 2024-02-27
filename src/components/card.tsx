@@ -1,27 +1,53 @@
 import type { Offer } from '../types/offer';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { AppRoute } from '../const';
+import classNames from 'classnames';
 
 type CardProps = {
   offer: Offer;
 }
 
+const ImageSize = {
+  Basic: {
+    Width: 260,
+    Height: 200,
+  },
+  Favorites: {
+    Width: 150,
+    Height: 110,
+  },
+} as const;
+
 function Card({ offer }: CardProps): JSX.Element {
   const [activeId, setActiveId] = useState('');
 
+  const isPathFavorites = useLocation().pathname === AppRoute.Favorites;
+
+  const currentImageSize = isPathFavorites ? ImageSize.Favorites : ImageSize.Basic;
+
   return (
-    <article className="cities__card place-card" onMouseEnter={() => setActiveId(offer.id)}>
+    <article className={classNames({ 'cities__card': !isPathFavorites, 'favorites__card': isPathFavorites }, 'place-card')}
+      onMouseEnter={() => setActiveId(offer.id)}
+    >
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={classNames({ 'cities__image-wrapper': !isPathFavorites, 'favorites__image-wrapper': isPathFavorites },
+        'place-card__image-wrapper')}
+      >
         <Link to={`/offer/${offer.id}`}>
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image"
+            src={offer.previewImage}
+            width={currentImageSize.Width}
+            height={currentImageSize.Height}
+            alt="Place image"
+          />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={classNames({ 'favorites-card__info': isPathFavorites }, 'place-card__info')}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
@@ -43,7 +69,7 @@ function Card({ offer }: CardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type" style={{textTransform: 'capitalize'}}>{offer.type}</p>
+        <p className="place-card__type" style={{ textTransform: 'capitalize' }}>{offer.type}</p>
       </div>
     </article>
   );
