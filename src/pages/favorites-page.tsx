@@ -22,7 +22,7 @@ const favoritesEmpty = (
   </section>
 );
 
-function FavoritesLocation({ city, offerByCity }: { city: CitiesType; offerByCity: Offer[] }): JSX.Element {
+function FavoritesLocation({ city, offersByCity }: { city: CitiesType; offersByCity: Offer[] }): JSX.Element {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -33,7 +33,7 @@ function FavoritesLocation({ city, offerByCity }: { city: CitiesType; offerByCit
         </div>
       </div>
       <div className="favorites__places">
-        {offerByCity.map((offer) => <Card key={offer.id} offer={offer} />)}
+        {offersByCity.map((offer) => <Card key={offer.id} offer={offer} />)}
       </div>
     </li>
   );
@@ -42,9 +42,9 @@ function FavoritesLocation({ city, offerByCity }: { city: CitiesType; offerByCit
 function Favorites({ favorites }: { favorites: Offer[] }): JSX.Element {
   function renderFavoritesLocations(): (JSX.Element | undefined)[] {
     return Cities.map((city) => {
-      const offerByCity = favorites.filter((offer) => offer.city.name === city);
-      if (offerByCity.length) {
-        return <FavoritesLocation key={city} city={city} offerByCity={offerByCity} />;
+      const offersByCity = favorites.filter((offer) => offer.city.name === city);
+      if (offersByCity.length) {
+        return <FavoritesLocation key={city} city={city} offersByCity={offersByCity} />;
       }
     });
   }

@@ -1,11 +1,11 @@
 import type { Offer } from '../types/offer';
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../const';
 import classNames from 'classnames';
 
 type CardProps = {
   offer: Offer;
+  setActiveCardId?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ImageSize = {
@@ -19,16 +19,14 @@ const ImageSize = {
   },
 } as const;
 
-function Card({ offer }: CardProps): JSX.Element {
-  const [activeId, setActiveId] = useState('');
-
+function Card({ offer, setActiveCardId }: CardProps): JSX.Element {
   const isPathFavorites = useLocation().pathname === AppRoute.Favorites;
 
   const currentImageSize = isPathFavorites ? ImageSize.Favorites : ImageSize.Basic;
 
   return (
     <article className={classNames({ 'cities__card': !isPathFavorites, 'favorites__card': isPathFavorites }, 'place-card')}
-      onMouseEnter={() => setActiveId(offer.id)}
+      onMouseEnter={() => setActiveCardId && setActiveCardId(offer.id)}
     >
       {offer.isPremium && (
         <div className="place-card__mark">

@@ -23,7 +23,7 @@ function App({ placesCount, offers }: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage placesCount={placesCount} offers={offers} />}
+            element={<MainPage placesCount={placesCount} offers={offers}/>}
           />
           <Route
             path={AppRoute.Login}

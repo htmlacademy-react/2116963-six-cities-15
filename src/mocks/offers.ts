@@ -25,6 +25,29 @@ export const offers: Offer[] = [
     'rating': 3
   },
   {
+    'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
+    'title': 'Beautiful & luxurious studio at great location',
+    'type': 'apartment',
+    'price': 120,
+    'city': {
+      'name': 'Amsterdam',
+      'location': {
+        'latitude': 52.35514938496378,
+        'longitude': 4.673877537499948,
+        'zoom': 8
+      }
+    },
+    'location': {
+      'latitude': 52.35514938496378,
+      'longitude': 4.673877537499948,
+      'zoom': 8
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 4,
+    'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/14.jpg'
+  },
+  {
     'id': 'd09326d8-14a2-40f4-bdff-e534c97efff0',
     'title': 'Perfectly located Castro',
     'type': 'house',
