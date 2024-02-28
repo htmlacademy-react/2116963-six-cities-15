@@ -65,7 +65,7 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${currentOffer.rating * 20}%` }} />
+                  <span style={{ width: `${Math.round(currentOffer.rating) * 20}%` }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{currentOffer.rating}</span>
@@ -155,12 +155,7 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
           <section className="offer__map map" />
         </section>
         <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">
-              Other places in the neighbourhood
-            </h2>
-            <OffersList offers={offers} />
-          </section>
+          <OffersList offers={offers} />
         </div>
       </main>
     </div>

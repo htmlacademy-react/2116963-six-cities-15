@@ -11,11 +11,10 @@ import type { Offer } from '../types/offer';
 import ScrollToTop from './scroll-to-top';
 
 type AppProps = {
-  placesCount: number;
   offers: Offer[];
 }
 
-function App({ placesCount, offers }: AppProps): JSX.Element {
+function App({ offers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -23,7 +22,7 @@ function App({ placesCount, offers }: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage placesCount={placesCount} offers={offers}/>}
+            element={<MainPage offers={offers}/>}
           />
           <Route
             path={AppRoute.Login}

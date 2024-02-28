@@ -17,12 +17,12 @@ function Header(): JSX.Element {
 
   const logo = currentPath === AppRoute.Root ?
     (
-      <span className={'header__logo-link'}>
+      <span className={'header__logo-link header__logo-link--active'}>
         {logoImage}
       </span>
     ) :
     (
-      <Link className={'header__logo-link header__logo-link--active'} to={AppRoute.Root}>
+      <Link className={'header__logo-link'} to={AppRoute.Root}>
         {logoImage}
       </Link>
     );

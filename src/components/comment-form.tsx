@@ -3,7 +3,8 @@ import React from 'react';
 
 const STARS_NUMBER = 5;
 const STAR_TITLES = ['terribly', 'badly', 'not bad', 'good', 'perfect'] as const;
-const TEXT_LENGTH = 50;
+const TEXT_MIN_LENGTH = 50;
+const TEXT_MAX_LENGTH = 300;
 
 function CommentForm(): JSX.Element {
   const [formData, setFormData] = useState({ rating: 0, review: '' });
@@ -14,7 +15,7 @@ function CommentForm(): JSX.Element {
   };
 
   function disableSubmit() {
-    return formData.review.length <= TEXT_LENGTH || formData.rating === 0;
+    return formData.review.length <= TEXT_MIN_LENGTH || formData.rating === 0;
   }
 
   function renderStars() {
@@ -61,6 +62,7 @@ function CommentForm(): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={formData.review}
         onChange={handleFieldChange}
+        maxLength={TEXT_MAX_LENGTH}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
