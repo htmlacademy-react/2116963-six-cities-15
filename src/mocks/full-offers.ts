@@ -19,7 +19,7 @@ export const fullOffers: FullOffer[] = [
       'longitude': 4.673877537499948,
       'zoom': 8
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 4.5,
     'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',

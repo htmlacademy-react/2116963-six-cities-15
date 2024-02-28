@@ -4,6 +4,7 @@ import type { Offer, FullOffer } from '../types/offer';
 import { useParams } from 'react-router-dom';
 import OffersList from '../components/offers-list';
 import { fullOffers } from '../mocks/full-offers';
+import CommentForm from '../components/comment-form';
 
 type OfferPageProps = {
   offers: Offer[];
@@ -19,7 +20,7 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
     const imagesElements: JSX.Element[] = [];
     for (let i = 0; i < Math.min(IMAGES_LIMIT, currentOffer.images.length); i++) {
       imagesElements.push(
-        <div className="offer__image-wrapper">
+        <div key={`image-${i}`} className="offer__image-wrapper">
           <img
             className="offer__image"
             src={currentOffer.images[i]}
@@ -147,6 +148,7 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
                     </div>
                   </li>
                 </ul>
+                <CommentForm />
               </section>
             </div>
           </div>
