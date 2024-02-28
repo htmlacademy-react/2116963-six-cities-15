@@ -1,39 +1,80 @@
 import Header from '../components/header';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../const';
+import Footer from '../components/footer';
 import { Helmet } from 'react-helmet-async';
+import type { Offer, CitiesType } from '../types/offer';
+import { CITIES } from '../const';
+import Card from '../components/card';
+import classNames from 'classnames';
 
-function FavoritesPage(): JSX.Element {
+type FavoritesPageProps = {
+  offers: Offer[];
+}
+
+const favoritesEmpty = (
+  <section className="favorites favorites--empty">
+    <h1 className="visually-hidden">Favorites (empty)</h1>
+    <div className="favorites__status-wrapper">
+      <b className="favorites__status">Nothing yet saved.</b>
+      <p className="favorites__status-description">
+        Save properties to narrow down search or plan your future trips.
+      </p>
+    </div>
+  </section>
+);
+
+function FavoritesLocation({ city, offersByCity }: { city: CitiesType; offersByCity: Offer[] }): JSX.Element {
+  return (
+    <li className="favorites__locations-items">
+      <div className="favorites__locations locations locations--current">
+        <div className="locations__item">
+          <a className="locations__item-link" href="#">
+            <span>{city}</span>
+          </a>
+        </div>
+      </div>
+      <div className="favorites__places">
+        {offersByCity.map((offer) => <Card key={offer.id} offer={offer} />)}
+      </div>
+    </li>
+  );
+}
+
+function Favorites({ favorites }: { favorites: Offer[] }): JSX.Element {
+  function renderFavoritesLocations(): (JSX.Element | undefined)[] {
+    return CITIES.map((city) => {
+      const offersByCity = favorites.filter((offer) => offer.city.name === city);
+      if (offersByCity.length) {
+        return <FavoritesLocation key={city} city={city} offersByCity={offersByCity} />;
+      }
+    });
+  }
+
+  return (
+    <section className="favorites">
+      <h1 className="favorites__title">Saved listing</h1>
+      <ul className="favorites__list">
+        {renderFavoritesLocations()}
+      </ul>
+    </section>
+
+  );
+}
+
+function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
+  const favorites = offers.filter((offer) => offer.isFavorite);
+
   return (
     <div className="page page--favorites-empty">
       <Helmet>
         <title>6 cities. Favorites.</title>
       </Helmet>
       <Header />
-      <main className="page__main page__main--favorites page__main--favorites-empty">
+      <main className={classNames('page__main page__main--favorites', { 'page__main--favorites-empty': favorites.length })}>
         <div className="page__favorites-container container">
-          <section className="favorites favorites--empty">
-            <h1 className="visually-hidden">Favorites (empty)</h1>
-            <div className="favorites__status-wrapper">
-              <b className="favorites__status">Nothing yet saved.</b>
-              <p className="favorites__status-description">
-                Save properties to narrow down search or plan your future trips.
-              </p>
-            </div>
-          </section>
+          {favorites.length ? <Favorites favorites={favorites} /> : favoritesEmpty}
         </div>
       </main>
-      <footer className="footer">
-        <Link className="footer__logo-link" to={AppRoute.Root}>
-          <img
-            className="footer__logo"
-            src="img/logo.svg"
-            alt="6 cities logo"
-            width={64}
-            height={33}
-          />
-        </Link>
-      </footer>
+      <Footer />
     </div>
   );
 }
