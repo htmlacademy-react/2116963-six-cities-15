@@ -10,7 +10,7 @@ type OffersListProps = {
 }
 
 function OffersList({ offers }: OffersListProps): JSX.Element {
-  const [activeCardId, setActiveCardId] = useState('');
+  const [_activeCardId, setActiveCardId] = useState('');
 
   const isPathRoot = useLocation().pathname === AppRoute.Root;
 
