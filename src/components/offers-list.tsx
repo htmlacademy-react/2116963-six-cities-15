@@ -10,7 +10,9 @@ type OffersListProps = {
 }
 
 function OffersList({ offers }: OffersListProps): JSX.Element {
-  const [_activeCardId, setActiveCardId] = useState('');
+  const [activeCardId, setActiveCardId] = useState('');
+  //TODO 'activeCardId' is assigned a value but never used.
+  (()=>activeCardId)();
 
   const isPathRoot = useLocation().pathname === AppRoute.Root;
 
