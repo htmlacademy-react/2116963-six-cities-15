@@ -2,6 +2,8 @@ import { useState } from 'react';
 import React from 'react';
 
 const STARS_NUMBER = 5;
+const STAR_TITLES = ['terribly', 'badly', 'not bad', 'good', 'perfect'] as const;
+const TEXT_LENGTH = 50;
 
 function CommentForm(): JSX.Element {
   const [formData, setFormData] = useState({ rating: 0, review: '' });
@@ -10,6 +12,10 @@ function CommentForm(): JSX.Element {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  function disableSubmit() {
+    return formData.review.length <= TEXT_LENGTH || formData.rating === 0;
+  }
 
   function renderStars() {
     const stars: JSX.Element[] = [];
@@ -23,11 +29,12 @@ function CommentForm(): JSX.Element {
             id={`${i}-stars`}
             type="radio"
             onChange={handleFieldChange}
+            defaultChecked={formData.rating === i}
           />
           <label
             htmlFor={`${i}-stars`}
             className="reviews__rating-label form__rating-label"
-            title="perfect"
+            title={STAR_TITLES[i - 1]}
           >
             <svg className="form__star-image" width={37} height={33}>
               <use xlinkHref="#icon-star" />
@@ -64,7 +71,7 @@ function CommentForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled={disableSubmit()}
         >
           Submit
         </button>

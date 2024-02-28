@@ -2,7 +2,7 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import { Helmet } from 'react-helmet-async';
 import type { Offer, CitiesType } from '../types/offer';
-import { Cities } from '../const';
+import { CITIES } from '../const';
 import Card from '../components/card';
 import classNames from 'classnames';
 
@@ -41,7 +41,7 @@ function FavoritesLocation({ city, offersByCity }: { city: CitiesType; offersByC
 
 function Favorites({ favorites }: { favorites: Offer[] }): JSX.Element {
   function renderFavoritesLocations(): (JSX.Element | undefined)[] {
-    return Cities.map((city) => {
+    return CITIES.map((city) => {
       const offersByCity = favorites.filter((offer) => offer.city.name === city);
       if (offersByCity.length) {
         return <FavoritesLocation key={city} city={city} offersByCity={offersByCity} />;
