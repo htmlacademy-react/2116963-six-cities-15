@@ -26,7 +26,7 @@ function Card({ offer, setActiveCardId }: CardProps): JSX.Element {
 
   return (
     <article className={classNames({ 'cities__card': !isPathFavorites, 'favorites__card': isPathFavorites }, 'place-card')}
-      onMouseEnter={() => setActiveCardId && setActiveCardId(offer.id)}
+      onMouseEnter={() => setActiveCardId?.(offer.id)}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
