@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import OffersList from '../components/offers-list';
 import { fullOffers } from '../mocks/full-offers';
 import CommentForm from '../components/comment-form';
+import { formatRating } from '../utils';
 
 type OfferPageProps = {
   offers: Offer[];
@@ -65,7 +66,7 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${Math.round(currentOffer.rating) * 20}%` }} />
+                  <span style={{ width: formatRating(currentOffer.rating) }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{currentOffer.rating}</span>

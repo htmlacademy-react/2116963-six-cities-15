@@ -2,6 +2,7 @@ import type { Offer } from '../types/offer';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../const';
 import classNames from 'classnames';
+import { formatRating } from '../utils';
 
 type CardProps = {
   offer: Offer;
@@ -60,7 +61,7 @@ function Card({ offer, setActiveCardId }: CardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${Math.round(offer.rating) * 20}%` }}></span>
+            <span style={{ width: formatRating(offer.rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
