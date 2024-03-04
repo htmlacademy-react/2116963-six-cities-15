@@ -1,29 +1,29 @@
 import type { Offer } from '../types/offer';
 
 export const offers: Offer[] = [
-  {
-    'id': 'f644d71b-def4-4a05-9878-f557b80f3ae0',
-    'title': 'Wood and stone place',
-    'type': 'hotel',
-    'price': 409,
-    'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
-    'city': {
-      'name': 'Paris',
-      'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
-        'zoom': 13
-      }
-    },
-    'location': {
-      'latitude': 48.868610000000004,
-      'longitude': 2.342499,
-      'zoom': 16
-    },
-    'isFavorite': true,
-    'isPremium': true,
-    'rating': 3
-  },
+  // {
+  //   'id': 'f644d71b-def4-4a05-9878-f557b80f3ae0',
+  //   'title': 'Wood and stone place',
+  //   'type': 'hotel',
+  //   'price': 409,
+  //   'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
+  //   'city': {
+  //     'name': 'Paris',
+  //     'location': {
+  //       'latitude': 48.85661,
+  //       'longitude': 2.351499,
+  //       'zoom': 13
+  //     }
+  //   },
+  //   'location': {
+  //     'latitude': 48.868610000000004,
+  //     'longitude': 2.342499,
+  //     'zoom': 16
+  //   },
+  //   'isFavorite': true,
+  //   'isPremium': true,
+  //   'rating': 3
+  // },
   {
     'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
     'title': 'Beautiful & luxurious studio at great location',
@@ -62,8 +62,8 @@ export const offers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 52.36554,
-      'longitude': 4.911976,
+      'latitude': 52.3909553943508,
+      'longitude': 4.85309666406198,
       'zoom': 16
     },
     'isFavorite': true,
@@ -85,8 +85,8 @@ export const offers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 52.385540000000006,
-      'longitude': 4.902976,
+      'latitude': 52.3609553943508,
+      'longitude': 4.85309666406198,
       'zoom': 16
     },
     'isFavorite': false,
@@ -108,8 +108,8 @@ export const offers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 52.397540000000006,
-      'longitude': 4.9099759999999995,
+      'latitude': 52.3909553943508,
+      'longitude': 4.929309666406198,
       'zoom': 16
     },
     'isFavorite': true,
@@ -131,8 +131,8 @@ export const offers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 52.37454,
-      'longitude': 4.881976,
+      'latitude': 52.3809553943508,
+      'longitude': 4.939309666406198,
       'zoom': 16
     },
     'isFavorite': false,
@@ -162,27 +162,27 @@ export const offers: Offer[] = [
     'isPremium': true,
     'rating': 1.5
   },
-  {
-    'id': 'e49dff2d-04c3-4952-a3b5-1d03e507e0ca',
-    'title': 'Wood and stone place',
-    'type': 'room',
-    'price': 156,
-    'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/11.jpg',
-    'city': {
-      'name': 'Amsterdam',
-      'location': {
-        'latitude': 52.37454,
-        'longitude': 4.897976,
-        'zoom': 13
-      }
-    },
-    'location': {
-      'latitude': 52.361540000000005,
-      'longitude': 4.883976,
-      'zoom': 16
-    },
-    'isFavorite': false,
-    'isPremium': true,
-    'rating': 3.8
-  },
+  // {
+  //   'id': 'e49dff2d-04c3-4952-a3b5-1d03e507e0ca',
+  //   'title': 'Wood and stone place',
+  //   'type': 'room',
+  //   'price': 156,
+  //   'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/11.jpg',
+  //   'city': {
+  //     'name': 'Amsterdam',
+  //     'location': {
+  //       'latitude': 52.37454,
+  //       'longitude': 4.897976,
+  //       'zoom': 13
+  //     }
+  //   },
+  //   'location': {
+  //     'latitude': 52.361540000000005,
+  //     'longitude': 4.883976,
+  //     'zoom': 16
+  //   },
+  //   'isFavorite': false,
+  //   'isPremium': true,
+  //   'rating': 3.8
+  // },
 ];

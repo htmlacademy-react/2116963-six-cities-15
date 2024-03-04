@@ -21,20 +21,28 @@ const ImageSize = {
 } as const;
 
 function Card({ offer, setActiveCardId }: CardProps): JSX.Element {
-  const isPathFavorites = useLocation().pathname === AppRoute.Favorites;
+  const currentPath = useLocation().pathname;
+  const isPathRoot = currentPath === AppRoute.Root;
+  const isPathFavorites = currentPath === AppRoute.Favorites;
+  const isPathOffer = currentPath.startsWith('/offer');
 
   const currentImageSize = isPathFavorites ? ImageSize.Favorites : ImageSize.Basic;
 
   return (
-    <article className={classNames({ 'cities__card': !isPathFavorites, 'favorites__card': isPathFavorites }, 'place-card')}
-      onMouseEnter={() => setActiveCardId?.(offer.id)}
+    <article className={classNames({ 'cities__card': isPathRoot, 'favorites__card': isPathFavorites, 'near-places__card': isPathOffer },
+      'place-card')} onMouseEnter={() => setActiveCardId?.(offer.id)}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className={classNames({ 'cities__image-wrapper': !isPathFavorites, 'favorites__image-wrapper': isPathFavorites },
+      <div className={classNames(
+        {
+          'cities__image-wrapper': isPathRoot,
+          'favorites__image-wrapper': isPathFavorites,
+          'near-places__image-wrapper': isPathOffer
+        },
         'place-card__image-wrapper')}
       >
         <Link to={`/offer/${offer.id}`}>

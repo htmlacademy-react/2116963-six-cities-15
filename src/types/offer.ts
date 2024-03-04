@@ -1,23 +1,23 @@
-export type CitiesType = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
+export type CityName = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
+
+export type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+}
+
+export type City = {
+  name: CityName;
+  location: Location;
+}
 
 export type Offer = {
   id: string;
   title: string;
   type: string;
   price: number;
-  city: {
-    name: CitiesType;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  };
+  city: City;
+  location: Location;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
@@ -29,19 +29,8 @@ export type FullOffer = {
   title: string;
   type: string;
   price: number;
-  city: {
-    name: CitiesType;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  };
+  city: City;
+  location: Location;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;

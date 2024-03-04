@@ -1,7 +1,7 @@
 import Header from '../components/header';
 import Footer from '../components/footer';
 import { Helmet } from 'react-helmet-async';
-import type { Offer, CitiesType } from '../types/offer';
+import type { Offer, CityName } from '../types/offer';
 import { CITIES } from '../const';
 import Card from '../components/card';
 import classNames from 'classnames';
@@ -22,7 +22,7 @@ const favoritesEmpty = (
   </section>
 );
 
-function FavoritesLocation({ city, offersByCity }: { city: CitiesType; offersByCity: Offer[] }): JSX.Element {
+function FavoritesLocation({ city, offersByCity }: { city: CityName; offersByCity: Offer[] }): JSX.Element {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
