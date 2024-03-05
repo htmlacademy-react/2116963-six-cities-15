@@ -2,10 +2,10 @@ import Header from '../components/header';
 import { Helmet } from 'react-helmet-async';
 import type { Offer, FullOffer } from '../types/offer';
 import { useParams } from 'react-router-dom';
-import OffersList from '../components/offers-list';
 import { fullOffers } from '../mocks/full-offers';
 import CommentForm from '../components/comment-form';
 import { formatRating } from '../utils';
+import Card from '../components/card';
 
 type OfferPageProps = {
   offers: Offer[];
@@ -156,7 +156,14 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
           <section className="offer__map map" />
         </section>
         <div className="container">
-          <OffersList offers={offers} />
+          <section className="near-places places">
+            <h2 className="near-places__title">
+              Other places in the neighbourhood
+            </h2>
+            <div className="near-places__list">
+              {offers.map((offer: Offer) => <Card key={offer.id} offer={offer} />)}
+            </div>
+          </section>
         </div>
       </main>
     </div>

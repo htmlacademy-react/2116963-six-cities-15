@@ -1,8 +1,6 @@
-import { useLocation } from 'react-router-dom';
 import type { Offer } from '../types/offer';
 import Card from './card';
-import classNames from 'classnames';
-import { AppRoute } from '../const';
+import Map from './map';
 import { useState } from 'react';
 
 type OffersListProps = {
@@ -11,15 +9,11 @@ type OffersListProps = {
 
 function OffersList({ offers }: OffersListProps): JSX.Element {
   const [activeCardId, setActiveCardId] = useState('');
-  //TODO 'activeCardId' is assigned a value but never used.
-  (()=>activeCardId)();
-
-  const isPathRoot = useLocation().pathname === AppRoute.Root;
 
   return (
-    <section className={classNames({ 'cities__places': isPathRoot, 'near-places': !isPathRoot }, 'places')}>
-      {isPathRoot ?
-        <>
+    <div className="cities">
+      <div className="cities__places-container container">
+        <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">{offers.length} places to stay in Amsterdam</b>
           <form className="places__sorting" action="#" method="get">
@@ -48,16 +42,15 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
               </li>
             </ul>
           </form>
-        </> :
-        <h2 className="near-places__title">
-          Other places in the neighbourhood
-        </h2>}
-      <div className={classNames('places__list',
-        { 'near-places__list': !isPathRoot, 'cities__places-list': isPathRoot, 'tabs__content': isPathRoot })}
-      >
-        {offers.map((offer: Offer) => <Card key={offer.id} offer={offer} setActiveCardId={setActiveCardId} />)}
+          <div className="cities__places-list tabs__content">
+            {offers.map((offer: Offer) => <Card key={offer.id} offer={offer} setActiveCardId={setActiveCardId} />)}
+          </div>
+        </section>
+        <div className="cities__right-section">
+          <Map city={offers[0].city} offers={offers} activeCardId={activeCardId} />
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
 

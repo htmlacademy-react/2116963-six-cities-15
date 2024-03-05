@@ -29,8 +29,13 @@ function Card({ offer, setActiveCardId }: CardProps): JSX.Element {
   const currentImageSize = isPathFavorites ? ImageSize.Favorites : ImageSize.Basic;
 
   return (
-    <article className={classNames({ 'cities__card': isPathRoot, 'favorites__card': isPathFavorites, 'near-places__card': isPathOffer },
-      'place-card')} onMouseEnter={() => setActiveCardId?.(offer.id)}
+    <article className={classNames(
+      {
+        'cities__card': isPathRoot,
+        'favorites__card': isPathFavorites,
+        'near-places__card': isPathOffer
+      },
+      'place-card')} onMouseEnter={() => setActiveCardId?.(offer.id)} onMouseLeave={() => setActiveCardId?.('')}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
