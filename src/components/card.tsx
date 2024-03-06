@@ -2,6 +2,7 @@ import type { Offer } from '../types/offer';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../const';
 import classNames from 'classnames';
+import { formatRating } from '../utils';
 
 type CardProps = {
   offer: Offer;
@@ -20,20 +21,33 @@ const ImageSize = {
 } as const;
 
 function Card({ offer, setActiveCardId }: CardProps): JSX.Element {
-  const isPathFavorites = useLocation().pathname === AppRoute.Favorites;
+  const currentPath = useLocation().pathname;
+  const isPathRoot = currentPath === AppRoute.Root;
+  const isPathFavorites = currentPath === AppRoute.Favorites;
+  const isPathOffer = currentPath.startsWith('/offer');
 
   const currentImageSize = isPathFavorites ? ImageSize.Favorites : ImageSize.Basic;
 
   return (
-    <article className={classNames({ 'cities__card': !isPathFavorites, 'favorites__card': isPathFavorites }, 'place-card')}
-      onMouseEnter={() => setActiveCardId && setActiveCardId(offer.id)}
+    <article className={classNames(
+      {
+        'cities__card': isPathRoot,
+        'favorites__card': isPathFavorites,
+        'near-places__card': isPathOffer
+      },
+      'place-card')} onMouseEnter={() => setActiveCardId?.(offer.id)} onMouseLeave={() => setActiveCardId?.('')}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className={classNames({ 'cities__image-wrapper': !isPathFavorites, 'favorites__image-wrapper': isPathFavorites },
+      <div className={classNames(
+        {
+          'cities__image-wrapper': isPathRoot,
+          'favorites__image-wrapper': isPathFavorites,
+          'near-places__image-wrapper': isPathOffer
+        },
         'place-card__image-wrapper')}
       >
         <Link to={`/offer/${offer.id}`}>
@@ -60,7 +74,7 @@ function Card({ offer, setActiveCardId }: CardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${Math.round(offer.rating) * 20}%` }}></span>
+            <span style={{ width: formatRating(offer.rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

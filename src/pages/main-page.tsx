@@ -2,12 +2,15 @@ import Header from '../components/header';
 import { Helmet } from 'react-helmet-async';
 import type { Offer } from '../types/offer';
 import OffersList from '../components/offers-list';
+import { CITIES } from '../const';
 
 type MainPageProps = {
   offers: Offer[];
 }
 
 function MainPage({ offers }: MainPageProps): JSX.Element {
+  const offersByCity = offers.filter((offer) => offer.city.name === CITIES[3]);
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -52,14 +55,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
             </ul>
           </section>
         </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <OffersList offers={offers} />
-            <div className="cities__right-section">
-              <section className="cities__map map" />
-            </div>
-          </div>
-        </div>
+        <OffersList offers={offersByCity} />
       </main>
     </div>
   );
