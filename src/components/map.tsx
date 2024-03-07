@@ -2,12 +2,11 @@ import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import type { Offer, City } from '../types/offer';
 import useMap from '../hooks/use-map';
-import { useLocation } from 'react-router-dom';
-import { AppRoute } from '../const';
 import classNames from 'classnames';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
+  className: string;
   city: City;
   offers: Offer[];
   activeCardId?: string;
@@ -15,24 +14,20 @@ type MapProps = {
 
 const defaultCustomIcon = new Icon({
   iconUrl: '/img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39]
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: '/img/pin-active.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39]
 });
 
-function Map({ city, offers, activeCardId }: MapProps): JSX.Element {
-  const mapRef = useRef(null);
+function Map({className, city, offers, activeCardId }: MapProps): JSX.Element {
+  const mapRef = useRef<HTMLElement>(null);
   const cityRef = useRef(city);
   const map = useMap(mapRef, city);
-
-  const currentPath = useLocation().pathname;
-  const isPathRoot = currentPath === AppRoute.Root;
-  const isPathOffer = currentPath.startsWith('/offer');
 
   useEffect(() => {
     if (map) {
@@ -63,7 +58,7 @@ function Map({ city, offers, activeCardId }: MapProps): JSX.Element {
     }
   }, [map, offers, activeCardId, city]);
 
-  return <section className={classNames({'cities__map': isPathRoot, 'offer__map': isPathOffer}, 'map')} ref={mapRef} />;
+  return <section className={classNames(className, 'map')} ref={mapRef} />;
 }
 
 export default Map;

@@ -47,7 +47,7 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
           </div>
         </section>
         <div className="cities__right-section">
-          <Map city={offers[0].city} offers={offers} activeCardId={activeCardId} />
+          <Map className="cities__map" city={offers[0].city} offers={offers} activeCardId={activeCardId} />
         </div>
       </div>
     </div>
