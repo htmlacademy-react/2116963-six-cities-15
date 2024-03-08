@@ -3,11 +3,18 @@ import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../const';
 import classNames from 'classnames';
 import { formatRating } from '../utils';
+import { isPathRootCity } from '../utils';
 
 type CardProps = {
   offer: Offer;
   setActiveCardId?: React.Dispatch<React.SetStateAction<string>>;
 }
+
+// type CardClasses = {
+//   article: string;
+//   image: string;
+//   info?: string;
+// }
 
 const ImageSize = {
   Basic: {
@@ -22,7 +29,7 @@ const ImageSize = {
 
 function Card({ offer, setActiveCardId }: CardProps): JSX.Element {
   const currentPath = useLocation().pathname;
-  const isPathRoot = currentPath === AppRoute.Root;
+  const isPathRoot = isPathRootCity(currentPath);
   const isPathFavorites = currentPath === AppRoute.Favorites;
   const isPathOffer = currentPath.startsWith('/offer');
 

@@ -1,7 +1,7 @@
 import MainPage from '../pages/main-page';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus, CITIES } from '../const';
 import NotFoundPage from '../pages/not-found-page';
 import LoginPage from '../pages/login-page';
 import FavoritesPage from '../pages/favorites-page';
@@ -22,8 +22,15 @@ function App({ offers }: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage offers={offers}/>}
+            element={<Navigate to={`/${CITIES[0].toLowerCase()}`} />}
           />
+          {CITIES.map((city) => (
+            <Route
+              key={city}
+              path={`/${city.toLowerCase()}`}
+              element={<MainPage offers={offers} cityName={city} />}
+            />
+          ))}
           <Route
             path={AppRoute.Login}
             element={<LoginPage />}

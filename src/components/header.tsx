@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../const';
 import HeaderNavigation from './header-navigation';
+import { isPathRootCity } from '../utils';
 
 const logoImage = (
   <img
@@ -15,7 +16,7 @@ const logoImage = (
 function Header(): JSX.Element {
   const currentPath = useLocation().pathname;
 
-  const logo = currentPath === AppRoute.Root ?
+  const logo = isPathRootCity(currentPath) ?
     (
       <span className={'header__logo-link header__logo-link--active'}>
         {logoImage}

@@ -3,13 +3,17 @@ import { Helmet } from 'react-helmet-async';
 import type { Offer } from '../types/offer';
 import OffersList from '../components/offers-list';
 import { CITIES } from '../const';
+import { NavLink } from 'react-router-dom';
+import classNames from 'classnames';
+import type { CityName } from '../types/offer';
 
 type MainPageProps = {
   offers: Offer[];
+  cityName: CityName;
 }
 
-function MainPage({ offers }: MainPageProps): JSX.Element {
-  const offersByCity = offers.filter((offer) => offer.city.name === CITIES[3]);
+function MainPage({ offers, cityName }: MainPageProps): JSX.Element {
+  const offersByCity = offers.filter((offer) => offer.city.name === cityName);
 
   return (
     <div className="page page--gray page--main">
@@ -22,36 +26,16 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              {CITIES.map((city) => (
+                <li key={city} className="locations__item">
+                  <NavLink
+                    className={({ isActive }) => classNames('locations__item-link tabs__item', { 'tabs__item--active': isActive })}
+                    to={`/${city.toLowerCase()}`}
+                  >
+                    <span>{city}</span>
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </section>
         </div>

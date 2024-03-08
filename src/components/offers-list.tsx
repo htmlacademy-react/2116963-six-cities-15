@@ -42,7 +42,7 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
               </li>
             </ul>
           </form>
-          <div className="cities__places-list tabs__content">
+          <div className="cities__places-list places__list tabs__content">
             {offers.map((offer: Offer) => <Card key={offer.id} offer={offer} setActiveCardId={setActiveCardId} />)}
           </div>
         </section>

@@ -39,5 +39,45 @@ export const fullOffers: FullOffer[] = [
       'https://15.design.htmlacademy.pro/static/hotel/14.jpg'
     ],
     'maxAdults': 5
+  },
+  {
+    'id': 'f644d71b-def4-4a05-9878-f557b80f3ae0',
+    'title': 'Wood and stone place',
+    'type': 'hotel',
+    'price': 409,
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 10
+      }
+    },
+    'location': {
+      'latitude': 48.868610000000004,
+      'longitude': 2.342499,
+      'zoom': 11
+    },
+    'isFavorite': true,
+    'isPremium': true,
+    'rating': 3,
+    'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    'bedrooms': 4,
+    'goods': [
+      'Heating',
+      'Wi-Fi',
+      'Kitchen'
+    ],
+    'host': {
+      'name': 'Oliver Conner',
+      'avatarUrl': 'img/avatar-max.jpg',
+      'isPro': true
+    },
+    'images': [
+      'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/17.jpg'
+    ],
+    'maxAdults': 4
   }
 ];

@@ -134,16 +134,17 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
           </div>
           <Map className="offer__map" offers={nearOffers} city={currentOffer.city} currentOffer={currentOffer} />
         </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">
-              Other places in the neighbourhood
-            </h2>
-            <div className="near-places__list">
-              {nearOffers.map((offer: Offer) => <Card key={offer.id} offer={offer} />)}
-            </div>
-          </section>
-        </div>
+        {Boolean(nearOffers.length) &&
+          <div className="container">
+            <section className="near-places places">
+              <h2 className="near-places__title">
+                Other places in the neighbourhood
+              </h2>
+              <div className="near-places__list places__list">
+                {nearOffers.map((offer: Offer) => <Card key={offer.id} offer={offer} />)}
+              </div>
+            </section>
+          </div>}
       </main>
     </div>
   );
