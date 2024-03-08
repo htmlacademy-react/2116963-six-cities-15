@@ -1,4 +1,6 @@
-export type CityName = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
+import { CITIES } from '../const';
+
+export type CityName = typeof CITIES[number];
 
 export type Location = {
   latitude: number;

@@ -1,6 +1,6 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
-import type { Offer, City } from '../types/offer';
+import type { Offer, City, FullOffer } from '../types/offer';
 import useMap from '../hooks/use-map';
 import classNames from 'classnames';
 import 'leaflet/dist/leaflet.css';
@@ -10,6 +10,7 @@ type MapProps = {
   city: City;
   offers: Offer[];
   activeCardId?: string;
+  currentOffer?: FullOffer;
 };
 
 const defaultCustomIcon = new Icon({
@@ -24,7 +25,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [13.5, 39]
 });
 
-function Map({className, city, offers, activeCardId }: MapProps): JSX.Element {
+function Map({className, city, offers, activeCardId, currentOffer }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLElement>(null);
   const cityRef = useRef(city);
   const map = useMap(mapRef, city);
@@ -52,11 +53,20 @@ function Map({className, city, offers, activeCardId }: MapProps): JSX.Element {
           .addTo(markerLayer);
       });
 
+      if (currentOffer) {
+        map.setView([currentOffer.location.latitude, currentOffer.location.longitude], currentOffer.location.zoom);
+        const marker = new Marker({
+          lat: currentOffer.location.latitude,
+          lng: currentOffer.location.longitude
+        });
+        marker.setIcon(currentCustomIcon).addTo(markerLayer);
+      }
+
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, activeCardId, city]);
+  }, [map, offers, activeCardId, city, currentOffer]);
 
   return <section className={classNames(className, 'map')} ref={mapRef} />;
 }

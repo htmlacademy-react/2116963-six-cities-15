@@ -32,15 +32,15 @@ export const offers: Offer[] = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
-        'zoom': 8
+        'latitude': 52.37454,
+        'longitude': 4.897976,
+        'zoom': 10
       }
     },
     'location': {
       'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
-      'zoom': 8
+      'longitude': 4.873877537499948,
+      'zoom': 11
     },
     'isFavorite': true,
     'isPremium': false,

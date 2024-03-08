@@ -3,19 +3,25 @@ import { Helmet } from 'react-helmet-async';
 import type { Offer, FullOffer } from '../types/offer';
 import { useParams } from 'react-router-dom';
 import { fullOffers } from '../mocks/full-offers';
+import { reviews as allReviews } from '../mocks/reviews';
 import CommentForm from '../components/comment-form';
-import { formatRating } from '../utils';
+import { formatRating, compareReviewDates, getNearOffers } from '../utils';
 import Card from '../components/card';
+import ReviewsItem from '../components/review-item';
+import Map from '../components/map';
 
 type OfferPageProps = {
   offers: Offer[];
 };
 
 const IMAGES_LIMIT = 6;
+const NEAR_OFFERS_LIMIT = 3;
 
 function OfferPage({ offers }: OfferPageProps): JSX.Element {
   const { id } = useParams();
   const currentOffer = fullOffers.find((offer) => offer.id === id) as FullOffer;
+  const nearOffers = getNearOffers(offers, id, currentOffer.city.name, NEAR_OFFERS_LIMIT);
+  const reviews = allReviews.filter((review) => review.id === id);
 
   function renderImages() {
     const imagesElements: JSX.Element[] = [];
@@ -115,45 +121,18 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">1</span>
+                  Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </h2>
                 <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img
-                          className="reviews__avatar user__avatar"
-                          src="img/avatar-max.jpg"
-                          width={54}
-                          height={54}
-                          alt="Reviews avatar"
-                        />
-                      </div>
-                      <span className="reviews__user-name">Max</span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{ width: '80%' }} />
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by
-                        the unique lightness of Amsterdam. The building is green and
-                        from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">
-                        April 2019
-                      </time>
-                    </div>
-                  </li>
+                  {reviews
+                    .sort(compareReviewDates)
+                    .map((review) => <ReviewsItem key={review.date} review={review} />)}
                 </ul>
                 <CommentForm />
               </section>
             </div>
           </div>
-          <section className="offer__map map" />
+          <Map className="offer__map" offers={nearOffers} city={currentOffer.city} currentOffer={currentOffer} />
         </section>
         <div className="container">
           <section className="near-places places">
@@ -161,7 +140,7 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list">
-              {offers.map((offer: Offer) => <Card key={offer.id} offer={offer} />)}
+              {nearOffers.map((offer: Offer) => <Card key={offer.id} offer={offer} />)}
             </div>
           </section>
         </div>
