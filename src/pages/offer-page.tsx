@@ -40,6 +40,57 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
     return imagesElements;
   }
 
+  const gallery = (
+    <div className="offer__gallery-container container">
+      <div className="offer__gallery">
+        {renderImages()}
+      </div>
+    </div>
+  );
+
+  const premium = (
+    <div className="offer__mark">
+      <span>Premium</span>
+    </div>
+  );
+
+  const bedrooms = (
+    <li className="offer__feature offer__feature--bedrooms">
+      {currentOffer.bedrooms} Bedroom{currentOffer.bedrooms > 1 && 's'}
+    </li>
+  );
+
+  const adults = (
+    <li className="offer__feature offer__feature--adults">
+      Max {currentOffer.maxAdults} adult{currentOffer.maxAdults > 1 && 's'}
+    </li>
+  );
+
+  const goods = (
+    <div className="offer__inside">
+      <h2 className="offer__inside-title">What&rsquo;s inside</h2>
+      <ul className="offer__inside-list">
+        {currentOffer.goods.map((item) => (
+          <li key={item} className="offer__inside-item">{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+
+  const nearPlaces = (
+    <div className="container">
+      <section className="near-places places">
+        <h2 className="near-places__title">
+          Other places in the neighbourhood
+        </h2>
+        <div className="near-places__list places__list">
+          {nearOffers.map((offer: Offer) => <Card classStart='near-places' offer={offer} key={offer.id} />)}
+        </div>
+      </section>
+    </div>
+  );
+
+
   return (
     <div className="page">
       <Helmet>
@@ -48,18 +99,10 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
-          <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              {renderImages()}
-            </div>
-          </div>
+          {Boolean(currentOffer.images.length) && gallery}
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {currentOffer.isPremium && (
-                <div className="offer__mark">
-                  <span>Premium</span>
-                </div>
-              )}
+              {currentOffer.isPremium && premium}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
                   {currentOffer.title}
@@ -80,25 +123,14 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire" style={{ textTransform: 'capitalize' }}>{currentOffer.type}</li>
-                <li className="offer__feature offer__feature--bedrooms">
-                  {currentOffer.bedrooms} Bedrooms
-                </li>
-                <li className="offer__feature offer__feature--adults">
-                  Max {currentOffer.maxAdults} adults
-                </li>
+                {Boolean(currentOffer.bedrooms) && bedrooms}
+                {Boolean(currentOffer.maxAdults) && adults}
               </ul>
               <div className="offer__price">
                 <b className="offer__price-value">€{currentOffer.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
-              <div className="offer__inside">
-                <h2 className="offer__inside-title">What&rsquo;s inside</h2>
-                <ul className="offer__inside-list">
-                  {currentOffer.goods.map((item) => (
-                    <li key={item} className="offer__inside-item">{item}</li>
-                  ))}
-                </ul>
-              </div>
+              {Boolean(currentOffer.goods.length) && goods}
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
@@ -136,17 +168,7 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
           </div>
           <Map className="offer__map" offers={nearOffers} city={currentOffer.city} currentOffer={currentOffer} />
         </section>
-        {Boolean(nearOffers.length) &&
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">
-                Other places in the neighbourhood
-              </h2>
-              <div className="near-places__list places__list">
-                {nearOffers.map((offer: Offer) => <Card classStart='near-places' offer={offer} key={offer.id}/>)}
-              </div>
-            </section>
-          </div>}
+        {Boolean(nearOffers.length) && nearPlaces}
       </main>
     </div>
   );
