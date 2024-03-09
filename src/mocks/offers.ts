@@ -25,6 +25,29 @@ export const offers: Offer[] = [
     'rating': 3
   },
   {
+    'id': '7c5e6aa8-94e8-40ed-8206-9497a4bf309d',
+    'title': 'Amazing and Extremely Central Flat',
+    'type': 'apartment',
+    'price': 172,
+    'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.858610000000006,
+      'longitude': 2.330499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 4.8
+  },
+  {
     'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment',

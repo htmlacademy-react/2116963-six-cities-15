@@ -27,7 +27,7 @@ function Header(): JSX.Element {
               className='header__logo-link'
               activeClassName='header__logo-link--active'
               isActive={isPathRoot}
-              to={AppRoute.Root}
+              to={AppRoute.RootCity}
             >
               {logoImage}
             </CustomLink>

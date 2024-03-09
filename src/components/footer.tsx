@@ -4,7 +4,7 @@ import { AppRoute } from '../const';
 function Footer(): JSX.Element {
   return (
     <footer className="footer">
-      <Link className="footer__logo-link" to={AppRoute.Root}>
+      <Link className="footer__logo-link" to={AppRoute.RootCity}>
         <img
           className="footer__logo"
           src="img/logo.svg"

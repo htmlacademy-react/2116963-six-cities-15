@@ -1,5 +1,6 @@
 import type { Review } from '../types/review';
-import { formatDate, formatRating } from '../utils';
+import { formatDate } from '../utils';
+import Rating from './rating';
 
 type ReviewProps = {
   review: Review;
@@ -21,12 +22,7 @@ function ReviewsItem({ review }: ReviewProps) {
         <span className="reviews__user-name">{review.user.name}</span>
       </div>
       <div className="reviews__info">
-        <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={{ width: formatRating(review.rating) }} />
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating classStart='reviews' rating={review.rating} />
         <p className="reviews__text">
           {review.comment}
         </p>

@@ -24,7 +24,7 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
                 <use xlinkHref="#icon-arrow-select" />
               </svg>
             </span>
-            <ul className="places__options places__options--custom places__options--opened">
+            <ul className="places__options places__options--custom">
               <li
                 className="places__option places__option--active"
                 tabIndex={0}

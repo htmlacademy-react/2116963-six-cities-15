@@ -29,9 +29,9 @@ export function getNearOffers(
   for (let i = 0; i < offersByCity.length; i++) {
     if (offersByCity[i].id !== currentId) {
       nearOffers.push(offersByCity[i]);
-    }
-    if (nearOffers.length === limit) {
-      break;
+      if (nearOffers.length === limit) {
+        return nearOffers;
+      }
     }
   }
   return nearOffers;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Rating from './rating';
+import FormRating from './form-rating';
 
 const TEXT_MIN_LENGTH = 50;
 const TEXT_MAX_LENGTH = 300;
@@ -25,7 +25,7 @@ function CommentForm(): JSX.Element {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        <Rating />
+        <FormRating />
       </div>
       <textarea
         className="reviews__textarea form__textarea"

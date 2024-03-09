@@ -5,7 +5,7 @@ import { AppRoute, AuthorizationStatus, CITIES } from '../const';
 import NotFoundPage from '../pages/not-found-page';
 import LoginPage from '../pages/login-page';
 import FavoritesPage from '../pages/favorites-page';
-import OfferPage from '../pages/offer-page';
+import OfferPage from '../pages/offer-page/offer-page';
 import PrivateRoute from './private-route';
 import type { Offer } from '../types/offer';
 import ScrollToTop from './scroll-to-top';
@@ -22,7 +22,7 @@ function App({ offers }: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<Navigate to={`/${CITIES[0].slug}`} />}
+            element={<Navigate to={AppRoute.RootCity} />}
           />
           {CITIES.map((city) => (
             <Route

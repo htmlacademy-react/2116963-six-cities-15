@@ -1,11 +1,10 @@
-import Header from '../components/header';
 import { Helmet } from 'react-helmet-async';
-import type { Offer } from '../types/offer';
+import { useLocation } from 'react-router-dom';
+import CustomLink from '../components/custom-link';
+import Header from '../components/header';
 import OffersList from '../components/offers-list';
 import { CITIES } from '../const';
-import type { CityName } from '../types/offer';
-import CustomLink from '../components/custom-link';
-import { useLocation } from 'react-router-dom';
+import type { CityName, Offer } from '../types/offer';
 
 type MainPageProps = {
   offers: Offer[];
