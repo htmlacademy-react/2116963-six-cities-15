@@ -3,9 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import type { Offer } from '../types/offer';
 import OffersList from '../components/offers-list';
 import { CITIES } from '../const';
-import { NavLink } from 'react-router-dom';
-import classNames from 'classnames';
 import type { CityName } from '../types/offer';
+import CustomLink from '../components/custom-link';
 
 type MainPageProps = {
   offers: Offer[];
@@ -27,13 +26,14 @@ function MainPage({ offers, cityName }: MainPageProps): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               {CITIES.map((city) => (
-                <li key={city} className="locations__item">
-                  <NavLink
-                    className={({ isActive }) => classNames('locations__item-link tabs__item', { 'tabs__item--active': isActive })}
-                    to={`/${city.toLowerCase()}`}
+                <li key={city.slug} className="locations__item">
+                  <CustomLink
+                    className='locations__item-link tabs__item'
+                    activeClassName='tabs__item--active'
+                    to={`/${city.slug}`}
                   >
-                    <span>{city}</span>
-                  </NavLink>
+                    <span>{city.name}</span>
+                  </CustomLink>
                 </li>
               ))}
             </ul>

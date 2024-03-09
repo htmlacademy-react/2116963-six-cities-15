@@ -16,6 +16,7 @@ type OfferPageProps = {
 
 const IMAGES_LIMIT = 6;
 const NEAR_OFFERS_LIMIT = 3;
+const REVIEWS_LIMIT = 10;
 
 function OfferPage({ offers }: OfferPageProps): JSX.Element {
   const { id } = useParams();
@@ -126,6 +127,7 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
                 <ul className="reviews__list">
                   {reviews
                     .sort(compareReviewDates)
+                    .slice(0, REVIEWS_LIMIT)
                     .map((review) => <ReviewsItem key={review.date} review={review} />)}
                 </ul>
                 <CommentForm />
@@ -141,7 +143,7 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
-                {nearOffers.map((offer: Offer) => <Card key={offer.id} offer={offer} />)}
+                {nearOffers.map((offer: Offer) => <Card classStart='near-places' offer={offer} key={offer.id}/>)}
               </div>
             </section>
           </div>}

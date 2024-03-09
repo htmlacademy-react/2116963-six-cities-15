@@ -22,13 +22,13 @@ function App({ offers }: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<Navigate to={`/${CITIES[0].toLowerCase()}`} />}
+            element={<Navigate to={`/${CITIES[0].slug}`} />}
           />
           {CITIES.map((city) => (
             <Route
-              key={city}
-              path={`/${city.toLowerCase()}`}
-              element={<MainPage offers={offers} cityName={city} />}
+              key={city.slug}
+              path={`/${city.slug}`}
+              element={<MainPage offers={offers} cityName={city.name} />}
             />
           ))}
           <Route

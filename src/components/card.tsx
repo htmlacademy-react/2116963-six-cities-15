@@ -3,18 +3,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../const';
 import classNames from 'classnames';
 import { formatRating } from '../utils';
-import { isPathRootCity } from '../utils';
 
 type CardProps = {
+  classStart: string;
   offer: Offer;
   setActiveCardId?: React.Dispatch<React.SetStateAction<string>>;
 }
-
-// type CardClasses = {
-//   article: string;
-//   image: string;
-//   info?: string;
-// }
 
 const ImageSize = {
   Basic: {
@@ -27,36 +21,23 @@ const ImageSize = {
   },
 } as const;
 
-function Card({ offer, setActiveCardId }: CardProps): JSX.Element {
+function Card({ classStart, offer, setActiveCardId }: CardProps): JSX.Element {
   const currentPath = useLocation().pathname;
-  const isPathRoot = isPathRootCity(currentPath);
   const isPathFavorites = currentPath === AppRoute.Favorites;
-  const isPathOffer = currentPath.startsWith('/offer');
 
   const currentImageSize = isPathFavorites ? ImageSize.Favorites : ImageSize.Basic;
 
   return (
-    <article className={classNames(
-      {
-        'cities__card': isPathRoot,
-        'favorites__card': isPathFavorites,
-        'near-places__card': isPathOffer
-      },
-      'place-card')} onMouseEnter={() => setActiveCardId?.(offer.id)} onMouseLeave={() => setActiveCardId?.('')}
+    <article className={`${classStart}__card place-card`}
+      onMouseEnter={() => setActiveCardId?.(offer.id)}
+      onMouseLeave={() => setActiveCardId?.('')}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className={classNames(
-        {
-          'cities__image-wrapper': isPathRoot,
-          'favorites__image-wrapper': isPathFavorites,
-          'near-places__image-wrapper': isPathOffer
-        },
-        'place-card__image-wrapper')}
-      >
+      <div className={`${classStart}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image"
             src={offer.previewImage}

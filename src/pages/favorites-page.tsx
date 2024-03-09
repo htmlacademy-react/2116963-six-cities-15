@@ -1,13 +1,23 @@
 import Header from '../components/header';
 import Footer from '../components/footer';
 import { Helmet } from 'react-helmet-async';
-import type { Offer, CityName } from '../types/offer';
+import type { Offer } from '../types/offer';
 import { CITIES } from '../const';
 import Card from '../components/card';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 
 type FavoritesPageProps = {
   offers: Offer[];
+}
+
+type FavoritesProps = {
+  favorites: Offer[];
+}
+
+type FavoritesLocationProps = {
+  city: typeof CITIES[number];
+  offersByCity: Offer[];
 }
 
 const favoritesEmpty = (
@@ -22,33 +32,32 @@ const favoritesEmpty = (
   </section>
 );
 
-function FavoritesLocation({ city, offersByCity }: { city: CityName; offersByCity: Offer[] }): JSX.Element {
+function FavoritesLocation({ city, offersByCity }: FavoritesLocationProps): JSX.Element {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="#">
-            <span>{city}</span>
-          </a>
+          <Link className="locations__item-link" to={`/${city.slug}`}>
+            <span>{city.name}</span>
+          </Link>
         </div>
       </div>
       <div className="favorites__places">
-        {offersByCity.map((offer) => <Card key={offer.id} offer={offer} />)}
+        {offersByCity.map((offer) => <Card classStart='favorites' offer={offer} key={offer.id} />)}
       </div>
     </li>
   );
 }
 
-function Favorites({ favorites }: { favorites: Offer[] }): JSX.Element {
+function Favorites({ favorites }: FavoritesProps): JSX.Element {
   function renderFavoritesLocations(): (JSX.Element | undefined)[] {
     return CITIES.map((city) => {
-      const offersByCity = favorites.filter((offer) => offer.city.name === city);
+      const offersByCity = favorites.filter((offer) => offer.city.name === city.name);
       if (offersByCity.length) {
-        return <FavoritesLocation key={city} city={city} offersByCity={offersByCity} />;
+        return <FavoritesLocation key={city.slug} city={city} offersByCity={offersByCity} />;
       }
     });
   }
-
   return (
     <section className="favorites">
       <h1 className="favorites__title">Saved listing</h1>
@@ -64,7 +73,7 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
   const favorites = offers.filter((offer) => offer.isFavorite);
 
   return (
-    <div className="page page--favorites-empty">
+    <div className={classNames('page', { 'page--favorites-empty': !favorites.length })}>
       <Helmet>
         <title>6 cities. Favorites.</title>
       </Helmet>

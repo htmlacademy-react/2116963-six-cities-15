@@ -15,7 +15,7 @@ export function compareReviewDates(a: Review, b: Review) {
 }
 
 export function isPathRootCity(path: string) {
-  return CITIES.some((city) => path.startsWith(`/${city.toLowerCase()}`));
+  return CITIES.some((city) => path.startsWith(`/${city.slug}`));
 }
 
 export function getNearOffers(
