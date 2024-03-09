@@ -5,6 +5,7 @@ import OffersList from '../components/offers-list';
 import { CITIES } from '../const';
 import type { CityName } from '../types/offer';
 import CustomLink from '../components/custom-link';
+import { useLocation } from 'react-router-dom';
 
 type MainPageProps = {
   offers: Offer[];
@@ -12,6 +13,7 @@ type MainPageProps = {
 }
 
 function MainPage({ offers, cityName }: MainPageProps): JSX.Element {
+  const currentPath = useLocation().pathname;
   const offersByCity = offers.filter((offer) => offer.city.name === cityName);
 
   return (
@@ -30,6 +32,7 @@ function MainPage({ offers, cityName }: MainPageProps): JSX.Element {
                   <CustomLink
                     className='locations__item-link tabs__item'
                     activeClassName='tabs__item--active'
+                    currentPath={currentPath}
                     to={`/${city.slug}`}
                   >
                     <span>{city.name}</span>

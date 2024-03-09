@@ -1,6 +1,5 @@
 import type { Offer } from '../types/offer';
-import { Link, useLocation } from 'react-router-dom';
-import { AppRoute } from '../const';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { formatRating } from '../utils';
 
@@ -9,6 +8,8 @@ type CardProps = {
   offer: Offer;
   setActiveCardId?: React.Dispatch<React.SetStateAction<string>>;
 }
+
+const FAVORITES = 'favorites';
 
 const ImageSize = {
   Basic: {
@@ -22,10 +23,8 @@ const ImageSize = {
 } as const;
 
 function Card({ classStart, offer, setActiveCardId }: CardProps): JSX.Element {
-  const currentPath = useLocation().pathname;
-  const isPathFavorites = currentPath === AppRoute.Favorites;
-
-  const currentImageSize = isPathFavorites ? ImageSize.Favorites : ImageSize.Basic;
+  const isFavorites = classStart === FAVORITES;
+  const currentImageSize = isFavorites ? ImageSize.Favorites : ImageSize.Basic;
 
   return (
     <article className={`${classStart}__card place-card`}
@@ -47,7 +46,7 @@ function Card({ classStart, offer, setActiveCardId }: CardProps): JSX.Element {
           />
         </Link>
       </div>
-      <div className={classNames({ 'favorites-card__info': isPathFavorites }, 'place-card__info')}>
+      <div className={classNames({ 'favorites-card__info': isFavorites }, 'place-card__info')}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
