@@ -5,6 +5,7 @@ import Header from '../components/header';
 import OffersList from '../components/offers-list';
 import { CITIES } from '../const';
 import type { CityName, Offer } from '../types/offer';
+import classNames from 'classnames';
 
 type MainPageProps = {
   offers: Offer[];
@@ -21,7 +22,7 @@ function MainPage({ offers, cityName }: MainPageProps): JSX.Element {
         <title>6 cities</title>
       </Helmet>
       <Header />
-      <main className="page__main page__main--index">
+      <main className={classNames('page__main page__main--index', { 'page__main--index-empty': !offersByCity.length })}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -41,7 +42,7 @@ function MainPage({ offers, cityName }: MainPageProps): JSX.Element {
             </ul>
           </section>
         </div>
-        <OffersList offers={offersByCity} />
+        <OffersList offers={offersByCity} cityName={cityName} />
       </main>
     </div>
   );
