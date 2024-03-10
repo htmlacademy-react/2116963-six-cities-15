@@ -4,7 +4,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus, CITIES } from '../const';
 import NotFoundPage from '../pages/not-found-page';
 import LoginPage from '../pages/login-page';
-import FavoritesPage from '../pages/favorites-page';
+import FavoritesPage from '../pages/favorites-page/favorites-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import PrivateRoute from './private-route';
 import type { Offer } from '../types/offer';

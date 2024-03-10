@@ -26,9 +26,9 @@ export function getNearOffers(
 ) {
   const offersByCity = offers.filter((offer) => offer.city.name === currentCityName);
   const nearOffers: Offer[] = [];
-  for (let i = 0; i < offersByCity.length; i++) {
-    if (offersByCity[i].id !== currentId) {
-      nearOffers.push(offersByCity[i]);
+  for (const offer of offersByCity) {
+    if (offer.id !== currentId) {
+      nearOffers.push(offer);
       if (nearOffers.length === limit) {
         return nearOffers;
       }
