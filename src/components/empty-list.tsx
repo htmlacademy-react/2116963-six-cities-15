@@ -1,24 +1,27 @@
+import { CityName } from '../types/offer';
+
 type EmptyListProps = {
-  classStart: 'cities' | 'favorites';
+  classStart: keyof typeof Text;
+  cityName?: CityName;
 }
 
 const Text = {
-  cities: {
-    title: 'No places to stay available',
-    description: 'We could not find any property available at the moment in Dusseldorf'
+  'cities': {
+    Title: 'No places to stay available',
+    Description: 'We could not find any property available at the moment in '
   },
-  favorites: {
-    title: 'Nothing yet saved.',
-    description: 'Save properties to narrow down search or plan your future trips.'
+  'favorites': {
+    Title: 'Nothing yet saved.',
+    Description: 'Save properties to narrow down search or plan your future trips.'
   }
-} as const;
+};
 
-function EmptyList({ classStart }: EmptyListProps) {
+function EmptyList({ classStart, cityName }: EmptyListProps) {
   return (
     <div className={`${classStart}__status-wrapper`}>
-      <b className={`${classStart}__status`}>{Text[classStart].title}</b>
+      <b className={`${classStart}__status`}>{Text[classStart].Title}</b>
       <p className={`${classStart}__status-description`}>
-        {Text[classStart].description}
+        {Text[classStart].Description + cityName}
       </p>
     </div>
   );

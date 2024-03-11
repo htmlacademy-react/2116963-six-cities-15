@@ -1,6 +1,5 @@
 import type { Offer, CityName } from './types/offer';
 import type { Review } from './types/review';
-import { CITIES } from './const';
 
 export function formatRating(rating: number) {
   return `${Math.round(rating) * 20}%`;
@@ -12,10 +11,6 @@ export function formatDate(date: string) {
 
 export function compareReviewDates(a: Review, b: Review) {
   return new Date(b.date).getTime() - new Date(a.date).getTime();
-}
-
-export function isPathRootCity(path: string) {
-  return CITIES.some((city) => path.startsWith(`/${city.slug}`));
 }
 
 export function getNearOffers(

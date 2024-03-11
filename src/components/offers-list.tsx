@@ -3,6 +3,7 @@ import Card from './card';
 import Map from './map';
 import { useState } from 'react';
 import EmptyList from './empty-list';
+import classNames from 'classnames';
 
 type OffersListProps = {
   offers: Offer[];
@@ -14,7 +15,7 @@ function OffersList({ offers, cityName }: OffersListProps): JSX.Element {
 
   return (
     <div className="cities">
-      <div className="cities__places-container container">
+      <div className={classNames('cities__places-container container', {'cities__places-container--empty': !offers.length})}>
         {offers.length ?
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
@@ -47,7 +48,7 @@ function OffersList({ offers, cityName }: OffersListProps): JSX.Element {
             </div>
           </section> :
           <section className="cities__no-places">
-            <EmptyList classStart='cities' />
+            <EmptyList classStart='cities' cityName={cityName} />
           </section>}
         <div className="cities__right-section">
           {Boolean(offers.length) && <Map className="cities__map" city={offers[0].city} offers={offers} activeCardId={activeCardId} />}

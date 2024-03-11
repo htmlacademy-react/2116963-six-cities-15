@@ -21,7 +21,7 @@ function MainPage({ offers, cityName }: MainPageProps): JSX.Element {
       <Helmet>
         <title>6 cities</title>
       </Helmet>
-      <Header />
+      <Header logoIsActive />
       <main className={classNames('page__main page__main--index', { 'page__main--index-empty': !offersByCity.length })}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

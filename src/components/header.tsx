@@ -1,8 +1,11 @@
 import { useLocation } from 'react-router-dom';
 import { AppRoute } from '../const';
 import HeaderNavigation from './header-navigation';
-import { isPathRootCity } from '../utils';
 import CustomLink from './custom-link';
+
+type HeaderProps = {
+  logoIsActive?: true;
+}
 
 const logoImage = (
   <img
@@ -14,9 +17,8 @@ const logoImage = (
   />
 );
 
-function Header(): JSX.Element {
+function Header({ logoIsActive }: HeaderProps): JSX.Element {
   const currentPath = useLocation().pathname;
-  const isPathRoot = isPathRootCity(currentPath);
 
   return (
     <header className="header">
@@ -26,7 +28,7 @@ function Header(): JSX.Element {
             <CustomLink
               className='header__logo-link'
               activeClassName='header__logo-link--active'
-              isActive={isPathRoot}
+              isActive={logoIsActive}
               to={AppRoute.RootCity}
             >
               {logoImage}

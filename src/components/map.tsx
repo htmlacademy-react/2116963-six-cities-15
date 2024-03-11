@@ -46,7 +46,7 @@ function Map({className, city, offers, activeCardId, currentOffer }: MapProps): 
 
         marker
           .setIcon(
-            activeCardId && offer.id === activeCardId
+            offer.id === activeCardId
               ? currentCustomIcon
               : defaultCustomIcon
           )
