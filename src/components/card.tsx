@@ -1,13 +1,18 @@
 import type { Offer } from '../types/offer';
-import { Link, useLocation } from 'react-router-dom';
-import { AppRoute } from '../const';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { formatRating } from '../utils';
+import PremiumMark from './premium-mark';
+import BookmarkButton from './bookmark-button';
+import Rating from './rating';
+import Price from './price';
 
 type CardProps = {
+  classStart: string;
   offer: Offer;
   setActiveCardId?: React.Dispatch<React.SetStateAction<string>>;
 }
+
+const FAVORITES = 'favorites';
 
 const ImageSize = {
   Basic: {
@@ -20,36 +25,17 @@ const ImageSize = {
   },
 } as const;
 
-function Card({ offer, setActiveCardId }: CardProps): JSX.Element {
-  const currentPath = useLocation().pathname;
-  const isPathRoot = currentPath === AppRoute.Root;
-  const isPathFavorites = currentPath === AppRoute.Favorites;
-  const isPathOffer = currentPath.startsWith('/offer');
-
-  const currentImageSize = isPathFavorites ? ImageSize.Favorites : ImageSize.Basic;
+function Card({ classStart, offer, setActiveCardId }: CardProps): JSX.Element {
+  const isFavorites = classStart === FAVORITES;
+  const currentImageSize = isFavorites ? ImageSize.Favorites : ImageSize.Basic;
 
   return (
-    <article className={classNames(
-      {
-        'cities__card': isPathRoot,
-        'favorites__card': isPathFavorites,
-        'near-places__card': isPathOffer
-      },
-      'place-card')} onMouseEnter={() => setActiveCardId?.(offer.id)} onMouseLeave={() => setActiveCardId?.('')}
+    <article className={`${classStart}__card place-card`}
+      onMouseEnter={() => setActiveCardId?.(offer.id)}
+      onMouseLeave={() => setActiveCardId?.('')}
     >
-      {offer.isPremium && (
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-      )}
-      <div className={classNames(
-        {
-          'cities__image-wrapper': isPathRoot,
-          'favorites__image-wrapper': isPathFavorites,
-          'near-places__image-wrapper': isPathOffer
-        },
-        'place-card__image-wrapper')}
-      >
+      {offer.isPremium && <PremiumMark className='place-card__mark' />}
+      <div className={`${classStart}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image"
             src={offer.previewImage}
@@ -59,25 +45,12 @@ function Card({ offer, setActiveCardId }: CardProps): JSX.Element {
           />
         </Link>
       </div>
-      <div className={classNames({ 'favorites-card__info': isPathFavorites }, 'place-card__info')}>
+      <div className={classNames({ 'favorites-card__info': isFavorites }, 'place-card__info')}>
         <div className="place-card__price-wrapper">
-          <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{offer.price}</b>
-            <span className="place-card__price-text">&#47;&nbsp;night</span>
-          </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <Price classStart='place-card' price={offer.price} />
+          <BookmarkButton classStart='place-card' width={18} height={19} />
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: formatRating(offer.rating) }}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating classStart='place-card' rating={offer.rating} />
         <h2 className="place-card__name">
           <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
         </h2>
