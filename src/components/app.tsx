@@ -7,14 +7,12 @@ import LoginPage from '../pages/login-page';
 import FavoritesPage from '../pages/favorites-page/favorites-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import PrivateRoute from './private-route';
-import type { Offer } from '../types/offer';
 import ScrollToTop from './scroll-to-top';
+import { useAppSelector } from '../hooks/state';
 
-type AppProps = {
-  offers: Offer[];
-}
+function App(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
 
-function App({ offers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
