@@ -1,9 +1,11 @@
 import type { CityName, Offer } from '../types/offer';
 import Card from './card';
 import Map from './map';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import EmptyList from './empty-list';
 import classNames from 'classnames';
+import { useActionCreators } from '../hooks/state';
+import { offersActions } from '../store/slices/offers';
 
 type OffersListProps = {
   offers: Offer[];
@@ -11,15 +13,19 @@ type OffersListProps = {
 }
 
 function OffersList({ offers, cityName }: OffersListProps): JSX.Element {
-  const [activeCardId, setActiveCardId] = useState('');
+  const { setActiveId } = useActionCreators(offersActions);
+
+  useEffect(() => () => {
+    setActiveId('');
+  });
 
   return (
     <div className="cities">
-      <div className={classNames('cities__places-container container', {'cities__places-container--empty': !offers.length})}>
+      <div className={classNames('cities__places-container container', { 'cities__places-container--empty': !offers.length })}>
         {offers.length ?
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length} places to stay in {cityName}</b>
+            <b className="places__found">{offers.length} place{offers.length > 1 && 's'} to stay in {cityName}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -44,14 +50,14 @@ function OffersList({ offers, cityName }: OffersListProps): JSX.Element {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {offers.map((offer: Offer) => <Card classStart='cities' offer={offer} setActiveCardId={setActiveCardId} key={offer.id} />)}
+              {offers.map((offer: Offer) => <Card classStart='cities' offer={offer} setActiveId={setActiveId} key={offer.id} />)}
             </div>
           </section> :
           <section className="cities__no-places">
             <EmptyList classStart='cities' cityName={cityName} />
           </section>}
         <div className="cities__right-section">
-          {Boolean(offers.length) && <Map className="cities__map" city={offers[0].city} offers={offers} activeCardId={activeCardId} />}
+          {Boolean(offers.length) && <Map className="cities__map" city={offers[0].city} offers={offers} />}
         </div>
       </div>
     </div>

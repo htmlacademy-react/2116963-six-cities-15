@@ -8,11 +8,8 @@ import FavoritesPage from '../pages/favorites-page/favorites-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import PrivateRoute from './private-route';
 import ScrollToTop from './scroll-to-top';
-import { useAppSelector } from '../hooks/state';
 
 function App(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -26,7 +23,7 @@ function App(): JSX.Element {
             <Route
               key={city.slug}
               path={`/${city.slug}`}
-              element={<MainPage offers={offers} cityName={city.name} />}
+              element={<MainPage cityName={city.name} />}
             />
           ))}
           <Route
@@ -37,13 +34,13 @@ function App(): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <FavoritesPage offers={offers} />
+                <FavoritesPage />
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage offers={offers} />}
+            element={<OfferPage />}
           />
           <Route
             path="*"
