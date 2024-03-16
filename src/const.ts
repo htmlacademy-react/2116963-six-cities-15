@@ -1,3 +1,5 @@
+import type { Offer } from './types/offer';
+
 export const CITIES = [
   { name: 'Paris', slug: 'paris' },
   { name: 'Cologne', slug: 'cologne' },
@@ -20,3 +22,10 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const SORTING_OPTIONS = [
+  { text: 'Popular', compare: undefined },
+  { text: 'Price: low to high', compare: (a: Offer, b: Offer) => a.price - b.price },
+  { text: 'Price: high to low', compare: (a: Offer, b: Offer) => b.price - a.price },
+  { text: 'Top rated first', compare: (a: Offer, b: Offer) => b.rating - a.rating },
+] as const;

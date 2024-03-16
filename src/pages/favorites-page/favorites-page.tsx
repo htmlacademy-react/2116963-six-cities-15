@@ -1,16 +1,14 @@
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import { Helmet } from 'react-helmet-async';
-import type { Offer } from '../../types/offer';
 import classNames from 'classnames';
 import EmptyList from '../../components/empty-list';
 import FavoritesList from './favorites-list';
+import { useAppSelector } from '../../hooks/state';
+import { offersSelectors } from '../../store/slices/offers';
 
-type FavoritesPageProps = {
-  offers: Offer[];
-}
-
-function FavoritesPage({ offers: allOffers }: FavoritesPageProps): JSX.Element {
+function FavoritesPage(): JSX.Element {
+  const allOffers = useAppSelector(offersSelectors.offers);
   const offers = allOffers.filter((offer) => offer.isFavorite);
 
   return (

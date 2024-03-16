@@ -9,24 +9,23 @@ import Rating from '../../components/rating';
 import Reviews from '../../components/reviews';
 import { fullOffers } from '../../mocks/full-offers';
 import { reviews as allReviews } from '../../mocks/reviews';
-import type { FullOffer, Offer } from '../../types/offer';
+import type { FullOffer } from '../../types/offer';
 import { getNearOffers } from '../../utils';
 import Features from './features';
 import Gallery from './gallery';
 import Goods from './goods';
 import Host from './host';
 import NearPlaces from './near-places';
-
-type OfferPageProps = {
-  offers: Offer[];
-};
+import { useAppSelector } from '../../hooks/state';
+import { offersSelectors } from '../../store/slices/offers';
 
 const IMAGES_LIMIT = 6;
 const REVIEWS_LIMIT = 10;
 const NEAR_OFFERS_LIMIT = 3;
 
-function OfferPage({ offers }: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
   const { id } = useParams();
+  const offers = useAppSelector(offersSelectors.offers);
   const offer = fullOffers.find((fullOffer) => fullOffer.id === id) as FullOffer;
   const nearOffers = getNearOffers(offers, id, offer.city.name, NEAR_OFFERS_LIMIT);
   const reviews = allReviews.filter((review) => review.id === id);

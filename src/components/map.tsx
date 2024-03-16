@@ -4,12 +4,13 @@ import type { Offer, City, FullOffer } from '../types/offer';
 import useMap from '../hooks/use-map';
 import classNames from 'classnames';
 import 'leaflet/dist/leaflet.css';
+import { useAppSelector } from '../hooks/state';
+import { offersSelectors } from '../store/slices/offers';
 
 type MapProps = {
   className: string;
   city: City;
   offers: Offer[];
-  activeCardId?: string;
   currentOffer?: FullOffer;
 };
 
@@ -25,10 +26,11 @@ const currentCustomIcon = new Icon({
   iconAnchor: [13.5, 39]
 });
 
-function Map({className, city, offers, activeCardId, currentOffer }: MapProps): JSX.Element {
+function Map({className, city, offers, currentOffer }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLElement>(null);
   const cityRef = useRef(city);
   const map = useMap(mapRef, city);
+  const activeId = useAppSelector(offersSelectors.activeId);
 
   useEffect(() => {
     if (map) {
@@ -46,7 +48,7 @@ function Map({className, city, offers, activeCardId, currentOffer }: MapProps): 
 
         marker
           .setIcon(
-            offer.id === activeCardId
+            offer.id === activeId
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -66,7 +68,7 @@ function Map({className, city, offers, activeCardId, currentOffer }: MapProps): 
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, activeCardId, city, currentOffer]);
+  }, [map, offers, activeId, city, currentOffer]);
 
   return <section className={classNames(className, 'map')} ref={mapRef} />;
 }

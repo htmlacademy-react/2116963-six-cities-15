@@ -5,11 +5,12 @@ import PremiumMark from './premium-mark';
 import BookmarkButton from './bookmark-button';
 import Rating from './rating';
 import Price from './price';
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
 type CardProps = {
   classStart: string;
   offer: Offer;
-  setActiveCardId?: React.Dispatch<React.SetStateAction<string>>;
+  setActiveId?: ActionCreatorWithPayload<string, 'offers/setActiveId'>;
 }
 
 const FAVORITES = 'favorites';
@@ -25,14 +26,14 @@ const ImageSize = {
   },
 } as const;
 
-function Card({ classStart, offer, setActiveCardId }: CardProps): JSX.Element {
+function Card({ classStart, offer, setActiveId }: CardProps): JSX.Element {
   const isFavorites = classStart === FAVORITES;
   const currentImageSize = isFavorites ? ImageSize.Favorites : ImageSize.Basic;
 
   return (
     <article className={`${classStart}__card place-card`}
-      onMouseEnter={() => setActiveCardId?.(offer.id)}
-      onMouseLeave={() => setActiveCardId?.('')}
+      onMouseEnter={() => setActiveId?.(offer.id)}
+      onMouseLeave={() => setActiveId?.('')}
     >
       {offer.isPremium && <PremiumMark className='place-card__mark' />}
       <div className={`${classStart}__image-wrapper place-card__image-wrapper`}>

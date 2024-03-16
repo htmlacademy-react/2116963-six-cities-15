@@ -4,17 +4,20 @@ import CustomLink from '../components/custom-link';
 import Header from '../components/header';
 import OffersList from '../components/offers-list';
 import { CITIES } from '../const';
-import type { CityName, Offer } from '../types/offer';
+import type { CityName } from '../types/offer';
 import classNames from 'classnames';
+import { useAppSelector } from '../hooks/state';
+import { offersSelectors } from '../store/slices/offers';
 
 type MainPageProps = {
-  offers: Offer[];
   cityName: CityName;
 }
 
-function MainPage({ offers, cityName }: MainPageProps): JSX.Element {
+function MainPage({ cityName }: MainPageProps): JSX.Element {
   const currentPath = useLocation().pathname;
-  const offersByCity = offers.filter((offer) => offer.city.name === cityName);
+  const offers = useAppSelector(offersSelectors.offers);
+  const offersByCity = Object.groupBy(offers, (offer) => offer.city.name);
+  const currentOffers = offersByCity[cityName] || [];
 
   return (
     <div className="page page--gray page--main">
@@ -22,7 +25,7 @@ function MainPage({ offers, cityName }: MainPageProps): JSX.Element {
         <title>6 cities</title>
       </Helmet>
       <Header logoIsActive />
-      <main className={classNames('page__main page__main--index', { 'page__main--index-empty': !offersByCity.length })}>
+      <main className={classNames('page__main page__main--index', { 'page__main--index-empty': !currentOffers.length })}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -42,7 +45,7 @@ function MainPage({ offers, cityName }: MainPageProps): JSX.Element {
             </ul>
           </section>
         </div>
-        <OffersList offers={offersByCity} cityName={cityName} />
+        <OffersList offers={currentOffers} cityName={cityName} />
       </main>
     </div>
   );
