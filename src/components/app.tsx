@@ -5,7 +5,6 @@ import { AppRoute, AuthorizationStatus, CITIES } from '../const';
 import NotFoundPage from '../pages/not-found-page';
 import LoginPage from '../pages/login-page';
 import FavoritesPage from '../pages/favorites-page/favorites-page';
-import OfferPage from '../pages/offer-page/offer-page';
 import PrivateRoute from './private-route';
 import ScrollToTop from './scroll-to-top';
 
@@ -33,15 +32,17 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
                 <FavoritesPage />
               </PrivateRoute>
             }
           />
-          <Route
+          {
+          //TODO
+          /* <Route
             path={AppRoute.Offer}
             element={<OfferPage />}
-          />
+          /> */}
           <Route
             path="*"
             element={<NotFoundPage />}

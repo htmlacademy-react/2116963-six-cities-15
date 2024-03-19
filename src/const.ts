@@ -29,3 +29,9 @@ export const SORTING_OPTIONS = [
   { text: 'Price: high to low', compare: (a: Offer, b: Offer) => b.price - a.price },
   { text: 'Top rated first', compare: (a: Offer, b: Offer) => b.rating - a.rating },
 ] as const;
+
+export enum APIRoute {
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+}
