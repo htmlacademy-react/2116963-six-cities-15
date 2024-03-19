@@ -18,6 +18,7 @@ function MainPage({ cityName }: MainPageProps): JSX.Element {
   const offers = useAppSelector(offersSelectors.offers);
   const offersByCity = Object.groupBy(offers, (offer) => offer.city.name);
   const currentOffers = offersByCity[cityName] || [];
+  const hasOffers = currentOffers.length;
 
   return (
     <div className="page page--gray page--main">
@@ -25,7 +26,7 @@ function MainPage({ cityName }: MainPageProps): JSX.Element {
         <title>6 cities</title>
       </Helmet>
       <Header logoIsActive />
-      <main className={classNames('page__main page__main--index', { 'page__main--index-empty': !currentOffers.length })}>
+      <main className={classNames('page__main page__main--index', { 'page__main--index-empty': !hasOffers })}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">

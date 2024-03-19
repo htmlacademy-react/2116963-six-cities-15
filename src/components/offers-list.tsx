@@ -10,16 +10,18 @@ type OffersListProps = {
 }
 
 function OffersList({ offers, cityName }: OffersListProps): JSX.Element {
+  const hasOffers = offers.length;
+
   return (
     <div className="cities">
-      <div className={classNames('cities__places-container container', { 'cities__places-container--empty': !offers.length })}>
-        {offers.length ?
+      <div className={classNames('cities__places-container container', { 'cities__places-container--empty': !hasOffers })}>
+        {hasOffers ?
           <SortingList offers={offers} cityName={cityName} /> :
           <section className="cities__no-places">
             <EmptyList classStart='cities' cityName={cityName} />
           </section>}
         <div className="cities__right-section">
-          {Boolean(offers.length) && <Map className="cities__map" city={offers[0].city} offers={offers} />}
+          {Boolean(hasOffers) && <Map className="cities__map" city={offers[0].city} offers={offers} />}
         </div>
       </div>
     </div>

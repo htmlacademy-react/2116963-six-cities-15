@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import './polyfills';
 import { fetchOffersAction } from './store/thunks/offers';
+import ErrorMessage from './components/error-message/error-message';
 
 store.dispatch(fetchOffersAction());
 
@@ -14,7 +15,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Provider store = {store}>
+    <Provider store={store}>
+      <ErrorMessage />
       <App />
     </Provider>
   </React.StrictMode>
