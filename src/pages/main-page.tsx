@@ -18,7 +18,6 @@ function MainPage({ cityName }: MainPageProps): JSX.Element {
   const offers = useAppSelector(offersSelectors.offers);
   const offersByCity = Object.groupBy(offers, (offer) => offer.city.name);
   const currentOffers = offersByCity[cityName] || [];
-  // const currentOffers = [];
   const hasOffers = currentOffers.length;
 
   return (
