@@ -6,11 +6,13 @@ import { fetchOffersAction } from '../thunks/offers';
 type InitialState = {
   offers: Offer[];
   activeId: string;
+  areOffersLoading: boolean;
 }
 
 const initialState: InitialState = {
   offers: [],
   activeId: '',
+  areOffersLoading: false
 };
 
 const offersSlice = createSlice({
@@ -23,11 +25,16 @@ const offersSlice = createSlice({
   },
   selectors: {
     offers: (state) => state.offers,
-    activeId: (state) => state.activeId
+    activeId: (state) => state.activeId,
+    areOffersLoading: (state) => state.areOffersLoading
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchOffersAction.pending, (state) => {
+      state.areOffersLoading = true;
+    });
     builder.addCase(fetchOffersAction.fulfilled, (state, action) => {
       state.offers = action.payload;
+      state.areOffersLoading = false;
     });
   },
 });
