@@ -18,12 +18,14 @@ import Host from './host';
 import NearPlaces from './near-places';
 import { useAppSelector } from '../../hooks/state';
 import { offersSelectors } from '../../store/slices/offers';
+import useScrollToTop from '../../hooks/use-scroll-to-top';
 
 const IMAGES_LIMIT = 6;
 const REVIEWS_LIMIT = 10;
 const NEAR_OFFERS_LIMIT = 3;
 
 function OfferPage(): JSX.Element {
+  useScrollToTop();
   const { id } = useParams();
   const offers = useAppSelector(offersSelectors.offers);
   const offer = fullOffers.find((fullOffer) => fullOffer.id === id) as FullOffer;

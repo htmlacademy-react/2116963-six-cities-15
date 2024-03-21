@@ -2,7 +2,7 @@ import { FullOffer } from '../types/offer';
 
 export const fullOffers: FullOffer[] = [
   {
-    'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
+    'id': '041ce8e6-84b2-4b7b-b290-8b92c597745e',
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment',
     'price': 220,
@@ -41,7 +41,7 @@ export const fullOffers: FullOffer[] = [
     'maxAdults': 5
   },
   {
-    'id': '7c5e6aa8-94e8-40ed-8206-9497a4bf309d',
+    'id': 'dbdbf3e5-ad62-4c06-aaca-2e903dff34ef',
     'title': 'Amazing and Extremely Central Flat',
     'type': 'apartment',
     'price': 172,
@@ -80,7 +80,7 @@ export const fullOffers: FullOffer[] = [
     'maxAdults': 5
   },
   {
-    'id': 'f644d71b-def4-4a05-9878-f557b80f3ae0',
+    'id': '86dea48b-1656-4964-933a-754da66450fc',
     'title': 'Wood and stone place',
     'type': 'hotel',
     'price': 409,

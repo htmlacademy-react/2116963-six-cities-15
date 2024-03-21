@@ -6,13 +6,12 @@ import NotFoundPage from '../pages/not-found-page';
 import LoginPage from '../pages/login-page';
 import FavoritesPage from '../pages/favorites-page/favorites-page';
 import PrivateRoute from './private-route';
-import ScrollToTop from './scroll-to-top';
+import OfferPage from '../pages/offer-page/offer-page';
 
 function App(): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <ScrollToTop />
         <Routes>
           <Route
             path={AppRoute.Root}
@@ -37,12 +36,10 @@ function App(): JSX.Element {
               </PrivateRoute>
             }
           />
-          {
-          //TODO
-          /* <Route
+          <Route
             path={AppRoute.Offer}
             element={<OfferPage />}
-          /> */}
+          />
           <Route
             path="*"
             element={<NotFoundPage />}

@@ -2,17 +2,18 @@ import { Offer } from '../../types/offer';
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { fetchOffersAction } from '../thunks/offers';
+import { RequestStatus } from '../../const';
 
 type InitialState = {
   offers: Offer[];
   activeId: string;
-  areOffersLoading: boolean;
+  status: RequestStatus;
 }
 
 const initialState: InitialState = {
   offers: [],
   activeId: '',
-  areOffersLoading: false
+  status: RequestStatus.Idle
 };
 
 const offersSlice = createSlice({
@@ -26,20 +27,20 @@ const offersSlice = createSlice({
   selectors: {
     offers: (state) => state.offers,
     activeId: (state) => state.activeId,
-    areOffersLoading: (state) => state.areOffersLoading
+    status: (state) => state.status
   },
   extraReducers: (builder) => {
     builder.addCase(fetchOffersAction.pending, (state) => {
-      state.areOffersLoading = true;
+      state.status = RequestStatus.Loading;
     });
     builder.addCase(fetchOffersAction.fulfilled, (state, action) => {
       state.offers = action.payload;
-      state.areOffersLoading = false;
+      state.status = RequestStatus.Succeeded;
     });
   },
 });
 
-const offersActions = offersSlice.actions;
+const offersActions = {...offersSlice.actions, fetchOffers: fetchOffersAction};
 const offersSelectors = offersSlice.selectors;
 
 export { offersSlice, offersActions, offersSelectors };
