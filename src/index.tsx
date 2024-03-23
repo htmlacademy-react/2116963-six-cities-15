@@ -6,6 +6,9 @@ import { store } from './store';
 import './polyfills';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { checkAuthorization } from './store/thunks/user';
+
+store.dispatch(checkAuthorization());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
