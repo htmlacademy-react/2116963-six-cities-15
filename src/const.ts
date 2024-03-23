@@ -17,7 +17,7 @@ export const AppRoute = {
   Offer: '/offer/:id'
 } as const;
 
-export enum AuthorizationStatus {
+export const enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -29,3 +29,16 @@ export const SORTING_OPTIONS = [
   { text: 'Price: high to low', compare: (a: Offer, b: Offer) => b.price - a.price },
   { text: 'Top rated first', compare: (a: Offer, b: Offer) => b.rating - a.rating },
 ] as const;
+
+export const enum APIRoute {
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export const enum RequestStatus {
+  Idle,
+  Loading,
+  Succeeded,
+  Failed
+}

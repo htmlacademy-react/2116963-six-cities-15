@@ -16,21 +16,11 @@ function SortingList({ offers, cityName }: SortingListProps) {
   const { setActiveId } = useActionCreators(offersActions);
   const [currentOption, setCurrentOption] = useState<SortingOption>(SORTING_OPTIONS[0]);
 
-  useEffect(() => () => {
-    setActiveId('');
-  });
-
   useEffect(() => {
     setCurrentOption(SORTING_OPTIONS[0]);
   }, [cityName]);
 
-  let sortedOffers: Offer[];
-
-  if (currentOption === SORTING_OPTIONS[0]) {
-    sortedOffers = offers;
-  } else {
-    sortedOffers = [...offers].sort(currentOption.compare);
-  }
+  const sortedOffers: Offer[] = currentOption === SORTING_OPTIONS[0] ? offers : [...offers].sort(currentOption.compare);
 
   return (
     <section className="cities__places places">

@@ -3,11 +3,12 @@ import { useLocation } from 'react-router-dom';
 import CustomLink from '../components/custom-link';
 import Header from '../components/header';
 import OffersList from '../components/offers-list';
-import { CITIES } from '../const';
+import { CITIES, RequestStatus } from '../const';
 import type { CityName } from '../types/offer';
 import classNames from 'classnames';
-import { useAppSelector } from '../hooks/state';
-import { offersSelectors } from '../store/slices/offers';
+import { useActionCreators, useAppSelector } from '../hooks/state';
+import { offersActions, offersSelectors } from '../store/slices/offers';
+import { useEffect } from 'react';
 
 type MainPageProps = {
   cityName: CityName;
@@ -18,6 +19,16 @@ function MainPage({ cityName }: MainPageProps): JSX.Element {
   const offers = useAppSelector(offersSelectors.offers);
   const offersByCity = Object.groupBy(offers, (offer) => offer.city.name);
   const currentOffers = offersByCity[cityName] || [];
+  const hasOffers = currentOffers.length;
+  const status = useAppSelector(offersSelectors.status);
+  const { fetchOffers } = useActionCreators(offersActions);
+
+  useEffect(() => {
+    if (status === RequestStatus.Idle) {
+      fetchOffers();
+    }
+  }, [status, fetchOffers]);
+
 
   return (
     <div className="page page--gray page--main">
@@ -25,7 +36,7 @@ function MainPage({ cityName }: MainPageProps): JSX.Element {
         <title>6 cities</title>
       </Helmet>
       <Header logoIsActive />
-      <main className={classNames('page__main page__main--index', { 'page__main--index-empty': !currentOffers.length })}>
+      <main className={classNames('page__main page__main--index', { 'page__main--index-empty': !hasOffers })}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
