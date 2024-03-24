@@ -1,7 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../const';
-import { dropToken, saveToken } from '../../services/token';
 import { UserData } from '../../types/user';
 import { checkAuthorization, login, logout } from '../thunks/user';
 
@@ -36,12 +35,10 @@ const userSlice = createSlice({
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     });
     builder.addCase(login.fulfilled, (state, action) => {
-      saveToken(action.payload.token);
       state.userData = action.payload;
       state.authorizationStatus = AuthorizationStatus.Auth;
     });
     builder.addCase(logout.fulfilled, (state) => {
-      dropToken();
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     });
   },
