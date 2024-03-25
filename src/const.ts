@@ -18,9 +18,9 @@ export const AppRoute = {
 } as const;
 
 export const enum AuthorizationStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
+  Unknown,
+  Auth,
+  NoAuth,
 }
 
 export const SORTING_OPTIONS = [

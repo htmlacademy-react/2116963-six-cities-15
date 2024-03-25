@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
+import { getToken } from './token';
 
 type DetailMessageType = {
   errorType: string;
@@ -9,7 +10,6 @@ type DetailMessageType = {
 
 const STATUS_CODES = new Set([
   StatusCodes.BAD_REQUEST,
-  StatusCodes.UNAUTHORIZED,
   StatusCodes.NOT_FOUND
 ]);
 
@@ -23,6 +23,18 @@ export const createAPI = () => {
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
   });
+
+  api.interceptors.request.use(
+    (config) => {
+      const token = getToken();
+
+      if (token && config.headers) {
+        config.headers['x-token'] = token;
+      }
+
+      return config;
+    },
+  );
 
   api.interceptors.response.use(
     (response) => response,

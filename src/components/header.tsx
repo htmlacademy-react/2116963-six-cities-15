@@ -34,7 +34,7 @@ function Header({ logoIsActive }: HeaderProps): JSX.Element {
               {logoImage}
             </CustomLink>
           </div>
-          {currentPath !== AppRoute.Login && <HeaderNavigation />}
+          {currentPath !== AppRoute.Login && <HeaderNavigation currentPath={currentPath} />}
         </div>
       </div>
     </header>

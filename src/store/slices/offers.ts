@@ -1,7 +1,7 @@
 import { Offer } from '../../types/offer';
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { fetchOffersAction } from '../thunks/offers';
+import { fetchOffers } from '../thunks/offers';
 import { RequestStatus } from '../../const';
 
 type InitialState = {
@@ -30,17 +30,17 @@ const offersSlice = createSlice({
     status: (state) => state.status
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchOffersAction.pending, (state) => {
+    builder.addCase(fetchOffers.pending, (state) => {
       state.status = RequestStatus.Loading;
     });
-    builder.addCase(fetchOffersAction.fulfilled, (state, action) => {
+    builder.addCase(fetchOffers.fulfilled, (state, action) => {
       state.offers = action.payload;
       state.status = RequestStatus.Succeeded;
     });
   },
 });
 
-const offersActions = {...offersSlice.actions, fetchOffers: fetchOffersAction};
+const offersActions = {...offersSlice.actions, fetchOffers};
 const offersSelectors = offersSlice.selectors;
 
 export { offersSlice, offersActions, offersSelectors };

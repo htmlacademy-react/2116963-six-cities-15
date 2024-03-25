@@ -1,12 +1,11 @@
-import MainPage from '../pages/main-page';
-import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus, CITIES } from '../const';
-import NotFoundPage from '../pages/not-found-page';
-import LoginPage from '../pages/login-page';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { AppRoute, CITIES } from '../const';
 import FavoritesPage from '../pages/favorites-page/favorites-page';
-import PrivateRoute from './private-route';
-import OfferPage from '../pages/offer-page/offer-page';
+import LoginPage from '../pages/login-page';
+import MainPage from '../pages/main-page';
+import NotFoundPage from '../pages/not-found-page';
+import { PrivateRoute, PublicRoute } from './access-route';
 
 function App(): JSX.Element {
   return (
@@ -26,27 +25,33 @@ function App(): JSX.Element {
           ))}
           <Route
             path={AppRoute.Login}
-            element={<LoginPage />}
+            element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            }
           />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <PrivateRoute>
                 <FavoritesPage />
               </PrivateRoute>
             }
           />
-          <Route
+          {
+          //TODO
+          /* <Route
             path={AppRoute.Offer}
             element={<OfferPage />}
-          />
+          /> */}
           <Route
             path="*"
             element={<NotFoundPage />}
           />
         </Routes>
       </BrowserRouter >
-    </HelmetProvider>
+    </HelmetProvider >
   );
 }
 
