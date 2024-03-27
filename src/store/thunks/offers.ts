@@ -1,7 +1,7 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute } from '../../const';
 import { Offer } from '../../types/offer';
 import { ThunkApi } from '../../types/state';
-import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchOffers = createAsyncThunk<Offer[], undefined, ThunkApi>(
   'offers/fetchOffers',

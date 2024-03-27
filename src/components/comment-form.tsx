@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import FormRating from './form-rating';
+import { reviewsActions } from '../store/slices/reviews';
+import { ReviewToSent } from '../types/review';
+import { useActionCreators } from '../hooks/state';
 
 const TEXT_MIN_LENGTH = 50;
 const TEXT_MAX_LENGTH = 300;
@@ -9,8 +12,10 @@ type Form = HTMLFormElement & {
   review: HTMLTextAreaElement;
 }
 
-function CommentForm(): JSX.Element {
+function CommentForm({ id }: { id: string }): JSX.Element {
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
+  const formRef = useRef(null);
+  const { postReview } = useActionCreators(reviewsActions);
 
   function handleFormChange(evt: React.FormEvent<HTMLFormElement>) {
     const form = evt.currentTarget as Form;
@@ -19,8 +24,28 @@ function CommentForm(): JSX.Element {
     setSubmitDisabled(review.length <= TEXT_MIN_LENGTH || !rating);
   }
 
+  function handleFormSubmit(evt: React.FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+    const form = evt.currentTarget as Form;
+    const reviewToSent: ReviewToSent = {
+      offerId: id,
+      reviewInfo: {
+        comment: form.review.value,
+        rating: +form.rating.value
+      },
+      clearForm: () => {
+        form.review.value = '';
+        const stars: NodeListOf<HTMLInputElement> = form.querySelectorAll('input[type="radio"]');
+        stars.forEach((star) => {
+          star.checked = false;
+        });
+      }
+    };
+    postReview(reviewToSent);
+  }
+
   return (
-    <form className="reviews__form form" action="#" method="post" onChange={handleFormChange}>
+    <form className="reviews__form form" action="#" method="post" onChange={handleFormChange} onSubmit={handleFormSubmit} ref={formRef}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>

@@ -6,6 +6,7 @@ import LoginPage from '../pages/login-page';
 import MainPage from '../pages/main-page';
 import NotFoundPage from '../pages/not-found-page';
 import { PrivateRoute, PublicRoute } from './access-route';
+import OfferPage from '../pages/offer-page/offer-page';
 
 function App(): JSX.Element {
   return (
@@ -39,12 +40,10 @@ function App(): JSX.Element {
               </PrivateRoute>
             }
           />
-          {
-          //TODO
-          /* <Route
+          <Route
             path={AppRoute.Offer}
             element={<OfferPage />}
-          /> */}
+          />
           <Route
             path="*"
             element={<NotFoundPage />}

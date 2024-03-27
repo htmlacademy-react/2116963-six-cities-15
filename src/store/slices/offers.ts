@@ -1,8 +1,8 @@
-import { Offer } from '../../types/offer';
-import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { fetchOffers } from '../thunks/offers';
+import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus } from '../../const';
+import { Offer } from '../../types/offer';
+import { fetchOffers } from '../thunks/offers';
 
 type InitialState = {
   offers: Offer[];
@@ -43,4 +43,5 @@ const offersSlice = createSlice({
 const offersActions = {...offersSlice.actions, fetchOffers};
 const offersSelectors = offersSlice.selectors;
 
-export { offersSlice, offersActions, offersSelectors };
+export { offersActions, offersSelectors, offersSlice };
+
