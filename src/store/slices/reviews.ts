@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { RequestStatus } from '../../const';
 import { Review } from '../../types/review';
+import { compareReviewDates } from '../../utils';
 import { fetchReviews, postReview } from '../thunks/reviews';
 
 type InitialState = {
@@ -41,7 +42,10 @@ const reviewsSlice = createSlice({
 });
 
 const reviewsActions = { ...reviewsSlice.actions, fetchReviews, postReview };
-const reviewsSelectors = reviewsSlice.selectors;
+const reviewsSelectors = {
+  ...reviewsSlice.selectors,
+  lastReviews: createSelector(reviewsSlice.selectors.reviews, (reviews) => reviews.toSorted(compareReviewDates))
+};
 
 export { reviewsActions, reviewsSelectors, reviewsSlice };
 

@@ -10,11 +10,10 @@ export type Review = {
   rating: number;
 };
 
-export type ReviewToSent = {
+export type ReviewToSend = {
   offerId: string;
   reviewInfo: {
     comment: string;
     rating: number;
   };
-  clearForm: () => void;
 }

@@ -23,28 +23,27 @@ import Host from './host';
 import NearPlaces from './near-places';
 
 const IMAGES_LIMIT = 6;
-const REVIEWS_LIMIT = 10;
 const NEAR_OFFERS_LIMIT = 3;
 
 function OfferPage(): JSX.Element {
   useScrollToTop();
-  const { id } = useParams() as { id: string };
+  const { id: offerId } = useParams() as { id: string };
   const { fetchOffer, fetchNearOffers, clear } = useActionCreators(offerActions);
   const status = useAppSelector(offerSelectors.status);
   const offer = useAppSelector(offerSelectors.offer) as FullOffer;
   const allNearOffers = useAppSelector(offerSelectors.nearOffers);
-  const nearOffers = getNearOffers(allNearOffers, id, NEAR_OFFERS_LIMIT);
+  const nearOffers = getNearOffers(allNearOffers, offerId, NEAR_OFFERS_LIMIT);
 
   useEffect(() => {
     if (status === RequestStatus.Idle) {
-      fetchOffer(id);
-      fetchNearOffers(id);
+      fetchOffer(offerId);
+      fetchNearOffers(offerId);
     }
-  }, [id, status, fetchOffer, fetchNearOffers]);
+  }, [offerId, status, fetchOffer, fetchNearOffers]);
 
   useEffect(() => () => {
     clear();
-  }, [id, clear]);
+  }, [offerId, clear]);
 
 
   if (status === RequestStatus.Idle || status === RequestStatus.Loading) {
@@ -76,7 +75,7 @@ function OfferPage(): JSX.Element {
               <Price classStart='offer' price={offer.price} />
               {Boolean(offer.goods.length) && <Goods goods={offer.goods} />}
               <Host offer={offer} />
-              <Reviews id={id} reviewsLimit={REVIEWS_LIMIT} />
+              <Reviews offerId={offerId} />
             </div>
           </div>
           <Map className="offer__map" offers={nearOffers} city={offer.city} currentOffer={offer} />
