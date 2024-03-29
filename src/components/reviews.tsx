@@ -1,14 +1,34 @@
-import { Review } from '../types/review';
-import { compareReviewDates } from '../utils';
-import ReviewsItem from './review-item';
+import { useEffect } from 'react';
+import { AuthorizationStatus, RequestStatus } from '../const';
+import { useActionCreators, useAppSelector } from '../hooks/state';
+import { reviewsActions, reviewsSelectors } from '../store/slices/reviews';
+import { userSelectors } from '../store/slices/user';
 import CommentForm from './comment-form';
+import ReviewsItem from './review-item';
 
 type ReviewsProps = {
-  reviews: Review[];
-  reviewsLimit: number;
+  offerId: string;
 }
 
-function Reviews({ reviews, reviewsLimit }: ReviewsProps) {
+const REVIEWS_LIMIT = 10;
+
+function Reviews({ offerId }: ReviewsProps) {
+  const { fetchReviews, clear } = useActionCreators(reviewsActions);
+  const reviews = useAppSelector(reviewsSelectors.lastReviews);
+  const status = useAppSelector(reviewsSelectors.status);
+  const authorizationStatus = useAppSelector(userSelectors.authorizationStatus);
+  const isLogged = authorizationStatus === AuthorizationStatus.Auth;
+
+  useEffect(() => {
+    if (status === RequestStatus.Idle) {
+      fetchReviews(offerId);
+    }
+  }, [fetchReviews, offerId, status]);
+
+  useEffect(() => () => {
+    clear();
+  }, [clear, offerId]);
+
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
@@ -16,11 +36,10 @@ function Reviews({ reviews, reviewsLimit }: ReviewsProps) {
       </h2>
       <ul className="reviews__list">
         {reviews
-          .sort(compareReviewDates)
-          .slice(0, reviewsLimit)
-          .map((review) => <ReviewsItem key={review.date} review={review} />)}
+          .slice(0, REVIEWS_LIMIT)
+          .map((review) => <ReviewsItem key={review.date + review.id} review={review} />)}
       </ul>
-      <CommentForm />
+      {isLogged && <CommentForm offerId={offerId} />}
     </section>
   );
 }
