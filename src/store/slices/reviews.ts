@@ -44,7 +44,7 @@ const reviewsSlice = createSlice({
 const reviewsActions = { ...reviewsSlice.actions, fetchReviews, postReview };
 const reviewsSelectors = {
   ...reviewsSlice.selectors,
-  lastReviews: createSelector(reviewsSlice.selectors.reviews, (reviews) => reviews.toSorted(compareReviewDates))
+  sortedReviews: createSelector(reviewsSlice.selectors.reviews, (reviews) => reviews.toSorted(compareReviewDates))
 };
 
 export { reviewsActions, reviewsSelectors, reviewsSlice };

@@ -1,23 +1,22 @@
-import { useEffect } from 'react';
-import { AuthorizationStatus, RequestStatus } from '../const';
+import { memo, useEffect, useMemo } from 'react';
+import { REVIEWS_LIMIT, RequestStatus } from '../const';
 import { useActionCreators, useAppSelector } from '../hooks/state';
 import { reviewsActions, reviewsSelectors } from '../store/slices/reviews';
-import { userSelectors } from '../store/slices/user';
-import CommentForm from './comment-form';
-import ReviewsItem from './review-item';
+import LoggedWrapper from './logged-wrapper';
+import Loading from './loading/loading';
+import ReviewsItem from './reviews-item';
+import ReviewForm from './review-form';
 
 type ReviewsProps = {
   offerId: string;
 }
 
-const REVIEWS_LIMIT = 10;
-
-function Reviews({ offerId }: ReviewsProps) {
+function Reviews_({ offerId }: ReviewsProps) {
   const { fetchReviews, clear } = useActionCreators(reviewsActions);
-  const reviews = useAppSelector(reviewsSelectors.lastReviews);
+  const sortedReviews = useAppSelector(reviewsSelectors.sortedReviews);
+  const reviews = useMemo(() => sortedReviews.slice(0, REVIEWS_LIMIT), [sortedReviews]);
+
   const status = useAppSelector(reviewsSelectors.status);
-  const authorizationStatus = useAppSelector(userSelectors.authorizationStatus);
-  const isLogged = authorizationStatus === AuthorizationStatus.Auth;
 
   useEffect(() => {
     if (status === RequestStatus.Idle) {
@@ -29,19 +28,34 @@ function Reviews({ offerId }: ReviewsProps) {
     clear();
   }, [clear, offerId]);
 
+  if (status === RequestStatus.Idle || status === RequestStatus.Loading) {
+    return (
+      <section className="offer__reviews reviews" style={{ position: 'relative' }}>
+        <h2 className="reviews__title">
+          Reviews
+        </h2>
+        <Loading />
+      </section>
+    );
+  }
+
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
-        Reviews · <span className="reviews__amount">{reviews.length}</span>
+        Reviews · <span className="reviews__amount">{sortedReviews.length}</span>
       </h2>
+      {status === RequestStatus.Succeeded}
       <ul className="reviews__list">
         {reviews
-          .slice(0, REVIEWS_LIMIT)
           .map((review) => <ReviewsItem key={review.date + review.id} review={review} />)}
       </ul>
-      {isLogged && <CommentForm offerId={offerId} />}
+      <LoggedWrapper>
+        <ReviewForm offerId={offerId} />
+      </LoggedWrapper>
     </section>
   );
 }
+
+const Reviews = memo(Reviews_);
 
 export default Reviews;

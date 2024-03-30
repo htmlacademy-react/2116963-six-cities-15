@@ -1,12 +1,13 @@
+import { memo } from 'react';
 import type { Review } from '../types/review';
 import { formatDate } from '../utils';
 import Rating from './rating';
 
-type ReviewProps = {
+type ReviewsItemProps = {
   review: Review;
 }
 
-function ReviewsItem({ review }: ReviewProps) {
+function ReviewsItem_({ review }: ReviewsItemProps) {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -33,5 +34,7 @@ function ReviewsItem({ review }: ReviewProps) {
     </li>
   );
 }
+
+const ReviewsItem = memo(ReviewsItem_);
 
 export default ReviewsItem;

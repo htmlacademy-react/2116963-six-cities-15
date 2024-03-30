@@ -43,3 +43,5 @@ export const enum RequestStatus {
   Succeeded,
   Failed
 }
+
+export const REVIEWS_LIMIT = 10;

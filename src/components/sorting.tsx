@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { SORTING_OPTIONS } from '../const';
 import { SortingOption } from '../types/sorting';
 
@@ -8,7 +8,7 @@ type SortingProps = {
   setCurrentOption: React.Dispatch<React.SetStateAction<SortingOption>>;
 }
 
-function Sorting({ currentOption, setCurrentOption }: SortingProps) {
+function Sorting_({ currentOption, setCurrentOption }: SortingProps) {
   const [isOpened, setIsOpened] = useState(false);
 
   useEffect(() => {
@@ -65,5 +65,7 @@ function Sorting({ currentOption, setCurrentOption }: SortingProps) {
     </form >
   );
 }
+
+const Sorting = memo(Sorting_);
 
 export default Sorting;

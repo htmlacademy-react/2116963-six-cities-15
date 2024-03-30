@@ -6,6 +6,7 @@ import BookmarkButton from './bookmark-button';
 import Rating from './rating';
 import Price from './price';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import { memo } from 'react';
 
 type CardProps = {
   classStart: string;
@@ -26,7 +27,7 @@ const ImageSize = {
   },
 } as const;
 
-function Card({ classStart, offer, setActiveId }: CardProps): JSX.Element {
+function Card_({ classStart, offer, setActiveId }: CardProps): JSX.Element {
   const isFavorites = classStart === FAVORITES;
   const currentImageSize = isFavorites ? ImageSize.Favorites : ImageSize.Basic;
 
@@ -60,5 +61,7 @@ function Card({ classStart, offer, setActiveId }: CardProps): JSX.Element {
     </article>
   );
 }
+
+const Card = memo(Card_);
 
 export default Card;

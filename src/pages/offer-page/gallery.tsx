@@ -1,9 +1,11 @@
+import { memo } from 'react';
+
 type GalleryProps = {
   images: string[];
   imagesLimit: number;
 }
 
-function Gallery({ images, imagesLimit }: GalleryProps) {
+function Gallery_({ images, imagesLimit }: GalleryProps) {
   return (
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
@@ -20,5 +22,7 @@ function Gallery({ images, imagesLimit }: GalleryProps) {
     </div>
   );
 }
+
+const Gallery = memo(Gallery_);
 
 export default Gallery;

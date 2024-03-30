@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { useActionCreators, useAppSelector } from '../hooks/state';
@@ -7,7 +8,7 @@ type HeaderNavigationProps = {
   currentPath: string;
 }
 
-function HeaderNavigation({ currentPath }: HeaderNavigationProps): JSX.Element {
+function HeaderNavigation_({ currentPath }: HeaderNavigationProps): JSX.Element {
   const authorizationStatus = useAppSelector(userSelectors.authorizationStatus);
   const { logout } = useActionCreators(userActions);
   const userData = useAppSelector(userSelectors.userData);
@@ -49,5 +50,7 @@ function HeaderNavigation({ currentPath }: HeaderNavigationProps): JSX.Element {
     </nav>
   );
 }
+
+const HeaderNavigation = memo(HeaderNavigation_);
 
 export default HeaderNavigation;

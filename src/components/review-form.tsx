@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import FormRating from './form-rating';
 import { reviewsActions } from '../store/slices/reviews';
 import { ReviewToSend } from '../types/review';
@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 const TEXT_MIN_LENGTH = 50;
 const TEXT_MAX_LENGTH = 300;
 
-type CommentFormProps = {
+type ReviewFormProps = {
   offerId: string;
 }
 
@@ -17,7 +17,7 @@ type Form = HTMLFormElement & {
   review: HTMLTextAreaElement;
 }
 
-function CommentForm({ offerId }: CommentFormProps): JSX.Element {
+function ReviewForm_({ offerId }: ReviewFormProps): JSX.Element {
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
   const formRef = useRef(null);
   const { postReview } = useActionCreators(reviewsActions);
@@ -91,4 +91,6 @@ function CommentForm({ offerId }: CommentFormProps): JSX.Element {
   );
 }
 
-export default CommentForm;
+const ReviewForm = memo(ReviewForm_);
+
+export default ReviewForm;
