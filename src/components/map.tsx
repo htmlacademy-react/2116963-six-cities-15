@@ -56,7 +56,7 @@ function Map({className, city, offers, currentOffer }: MapProps): JSX.Element {
       });
 
       if (currentOffer) {
-        map.setView([currentOffer.location.latitude, currentOffer.location.longitude], currentOffer.location.zoom);
+        map.setView([currentOffer.location.latitude, currentOffer.location.longitude]);
         const marker = new Marker({
           lat: currentOffer.location.latitude,
           lng: currentOffer.location.longitude

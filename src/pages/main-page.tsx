@@ -26,10 +26,9 @@ function MainPage({ cityName }: MainPageProps): JSX.Element {
     }
   }, [status, fetchOffers]);
 
-  const currentOffers = useMemo(() => {
-    const offersByCity = Object.groupBy(offers, (offer) => offer.city.name);
-    return offersByCity[cityName] || [];
-  }, [offers, cityName]);
+  const offersByCity = useMemo(() => Object.groupBy(offers, (offer) => offer.city.name), [offers]);
+
+  const currentOffers = offersByCity[cityName] || [];
 
   const hasOffers = currentOffers.length;
 

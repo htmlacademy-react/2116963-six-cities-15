@@ -27,8 +27,7 @@ const ImageSize = {
   },
 } as const;
 
-// eslint-disable-next-line prefer-arrow-callback
-const Card = memo(function Card({ classStart, offer, setActiveId }: CardProps): JSX.Element {
+function Card_({ classStart, offer, setActiveId }: CardProps): JSX.Element {
   const isFavorites = classStart === FAVORITES;
   const currentImageSize = isFavorites ? ImageSize.Favorites : ImageSize.Basic;
 
@@ -61,6 +60,8 @@ const Card = memo(function Card({ classStart, offer, setActiveId }: CardProps): 
       </div>
     </article>
   );
-});
+}
+
+const Card = memo(Card_);
 
 export default Card;

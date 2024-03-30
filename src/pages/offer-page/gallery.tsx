@@ -5,8 +5,7 @@ type GalleryProps = {
   imagesLimit: number;
 }
 
-// eslint-disable-next-line prefer-arrow-callback
-const Gallery = memo(function Gallery({ images, imagesLimit }: GalleryProps) {
+function Gallery_({ images, imagesLimit }: GalleryProps) {
   return (
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
@@ -22,6 +21,8 @@ const Gallery = memo(function Gallery({ images, imagesLimit }: GalleryProps) {
       </div>
     </div>
   );
-});
+}
+
+const Gallery = memo(Gallery_);
 
 export default Gallery;

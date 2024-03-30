@@ -11,8 +11,7 @@ type ReviewsProps = {
   offerId: string;
 }
 
-// eslint-disable-next-line prefer-arrow-callback
-const Reviews = memo(function Reviews({ offerId }: ReviewsProps) {
+function Reviews_({ offerId }: ReviewsProps) {
   const { fetchReviews, clear } = useActionCreators(reviewsActions);
   const sortedReviews = useAppSelector(reviewsSelectors.sortedReviews);
   const reviews = useMemo(() => sortedReviews.slice(0, REVIEWS_LIMIT), [sortedReviews]);
@@ -55,6 +54,8 @@ const Reviews = memo(function Reviews({ offerId }: ReviewsProps) {
       </LoggedWrapper>
     </section>
   );
-});
+}
+
+const Reviews = memo(Reviews_);
 
 export default Reviews;

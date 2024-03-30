@@ -11,12 +11,13 @@ type CustomLinkProps = {
   children?: JSX.Element;
 }
 
-// eslint-disable-next-line prefer-arrow-callback
-const CustomLink = memo(function CustomLink({ className, activeClassName, isActive, currentPath, to, children }: CustomLinkProps) {
+function CustomLink_({ className, activeClassName, isActive, currentPath, to, children }: CustomLinkProps) {
   if (isActive || currentPath === to) {
     return <span className={classNames(className, activeClassName)}>{children}</span>;
   }
   return <Link className={className} to={to}>{children}</Link>;
-});
+}
+
+const CustomLink = memo(CustomLink_);
 
 export default CustomLink;

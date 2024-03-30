@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header';
@@ -25,7 +25,7 @@ function OfferPage(): JSX.Element {
   const status = useAppSelector(offerSelectors.status);
   const offer = useAppSelector(offerSelectors.offer) as FullOffer;
   const allNearOffers = useAppSelector(offerSelectors.nearOffers);
-  const nearOffers = getNearOffers(allNearOffers, offerId, NEAR_OFFERS_LIMIT);
+  const nearOffers = useMemo(() => getNearOffers(allNearOffers, offerId, NEAR_OFFERS_LIMIT), [allNearOffers, offerId]);
 
   useEffect(() => {
     if (status === RequestStatus.Idle) {
@@ -41,7 +41,9 @@ function OfferPage(): JSX.Element {
 
   if (status === RequestStatus.Idle || status === RequestStatus.Loading) {
     return <Loading />;
-  } else if (status === RequestStatus.Failed) {
+  }
+
+  if (status === RequestStatus.Failed) {
     return <NotFoundPage />;
   }
 

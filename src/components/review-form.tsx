@@ -17,8 +17,7 @@ type Form = HTMLFormElement & {
   review: HTMLTextAreaElement;
 }
 
-// eslint-disable-next-line prefer-arrow-callback
-const ReviewForm = memo(function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
+function ReviewForm_({ offerId }: ReviewFormProps): JSX.Element {
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
   const formRef = useRef(null);
   const { postReview } = useActionCreators(reviewsActions);
@@ -90,6 +89,8 @@ const ReviewForm = memo(function ReviewForm({ offerId }: ReviewFormProps): JSX.E
       </div>
     </form>
   );
-});
+}
+
+const ReviewForm = memo(ReviewForm_);
 
 export default ReviewForm;

@@ -14,8 +14,7 @@ type OfferContainerProps = {
   offerId: string;
 }
 
-// eslint-disable-next-line prefer-arrow-callback
-const OfferContainer = memo(function OfferContainer({ offer, offerId }: OfferContainerProps) {
+function OfferContainer_({ offer, offerId }: OfferContainerProps) {
   return (
     <div className="offer__container container">
       <div className="offer__wrapper">
@@ -35,6 +34,8 @@ const OfferContainer = memo(function OfferContainer({ offer, offerId }: OfferCon
       </div>
     </div>
   );
-});
+}
+
+const OfferContainer = memo(OfferContainer_);
 
 export default OfferContainer;

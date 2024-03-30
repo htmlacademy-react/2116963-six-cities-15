@@ -18,8 +18,7 @@ const logoImage = (
   />
 );
 
-// eslint-disable-next-line prefer-arrow-callback
-const Header = memo(function Header({ logoIsActive }: HeaderProps): JSX.Element {
+function Header_({ logoIsActive }: HeaderProps): JSX.Element {
   const currentPath = useLocation().pathname;
 
   return (
@@ -41,6 +40,8 @@ const Header = memo(function Header({ logoIsActive }: HeaderProps): JSX.Element 
       </div>
     </header>
   );
-});
+}
+
+const Header = memo(Header_);
 
 export default Header;

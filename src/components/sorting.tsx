@@ -8,8 +8,7 @@ type SortingProps = {
   setCurrentOption: React.Dispatch<React.SetStateAction<SortingOption>>;
 }
 
-// eslint-disable-next-line prefer-arrow-callback
-const Sorting = memo(function Sorting({ currentOption, setCurrentOption }: SortingProps) {
+function Sorting_({ currentOption, setCurrentOption }: SortingProps) {
   const [isOpened, setIsOpened] = useState(false);
 
   useEffect(() => {
@@ -65,6 +64,8 @@ const Sorting = memo(function Sorting({ currentOption, setCurrentOption }: Sorti
       </ul>
     </form >
   );
-});
+}
+
+const Sorting = memo(Sorting_);
 
 export default Sorting;

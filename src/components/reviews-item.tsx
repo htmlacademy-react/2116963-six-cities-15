@@ -7,8 +7,7 @@ type ReviewsItemProps = {
   review: Review;
 }
 
-// eslint-disable-next-line prefer-arrow-callback
-const ReviewsItem = memo(function ReviewsItem({ review }: ReviewsItemProps) {
+function ReviewsItem_({ review }: ReviewsItemProps) {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -34,6 +33,8 @@ const ReviewsItem = memo(function ReviewsItem({ review }: ReviewsItemProps) {
       </div>
     </li>
   );
-});
+}
+
+const ReviewsItem = memo(ReviewsItem_);
 
 export default ReviewsItem;

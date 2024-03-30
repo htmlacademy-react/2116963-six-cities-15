@@ -8,8 +8,7 @@ type HeaderNavigationProps = {
   currentPath: string;
 }
 
-// eslint-disable-next-line prefer-arrow-callback
-const HeaderNavigation = memo(function HeaderNavigation({ currentPath }: HeaderNavigationProps): JSX.Element {
+function HeaderNavigation_({ currentPath }: HeaderNavigationProps): JSX.Element {
   const authorizationStatus = useAppSelector(userSelectors.authorizationStatus);
   const { logout } = useActionCreators(userActions);
   const userData = useAppSelector(userSelectors.userData);
@@ -50,6 +49,8 @@ const HeaderNavigation = memo(function HeaderNavigation({ currentPath }: HeaderN
         </ul>}
     </nav>
   );
-});
+}
+
+const HeaderNavigation = memo(HeaderNavigation_);
 
 export default HeaderNavigation;
