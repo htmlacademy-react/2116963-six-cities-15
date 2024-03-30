@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { AppRoute } from '../const';
 import HeaderNavigation from './header-navigation';
 import CustomLink from './custom-link';
+import { memo } from 'react';
 
 type HeaderProps = {
   logoIsActive?: true;
@@ -17,7 +18,8 @@ const logoImage = (
   />
 );
 
-function Header({ logoIsActive }: HeaderProps): JSX.Element {
+// eslint-disable-next-line prefer-arrow-callback
+const Header = memo(function Header({ logoIsActive }: HeaderProps): JSX.Element {
   const currentPath = useLocation().pathname;
 
   return (
@@ -39,6 +41,6 @@ function Header({ logoIsActive }: HeaderProps): JSX.Element {
       </div>
     </header>
   );
-}
+});
 
 export default Header;

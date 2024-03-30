@@ -1,11 +1,11 @@
-import {useRef, useEffect} from 'react';
-import {Icon, Marker, layerGroup} from 'leaflet';
-import type { Offer, City, FullOffer } from '../types/offer';
-import useMap from '../hooks/use-map';
 import classNames from 'classnames';
+import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useEffect, useRef } from 'react';
 import { useAppSelector } from '../hooks/state';
+import useMap from '../hooks/use-map';
 import { offersSelectors } from '../store/slices/offers';
+import type { City, FullOffer, Offer } from '../types/offer';
 
 type MapProps = {
   className: string;

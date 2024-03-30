@@ -8,7 +8,7 @@ import type { CityName } from '../types/offer';
 import classNames from 'classnames';
 import { useActionCreators, useAppSelector } from '../hooks/state';
 import { offersActions, offersSelectors } from '../store/slices/offers';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 type MainPageProps = {
   cityName: CityName;
@@ -17,9 +17,6 @@ type MainPageProps = {
 function MainPage({ cityName }: MainPageProps): JSX.Element {
   const currentPath = useLocation().pathname;
   const offers = useAppSelector(offersSelectors.offers);
-  const offersByCity = Object.groupBy(offers, (offer) => offer.city.name);
-  const currentOffers = offersByCity[cityName] || [];
-  const hasOffers = currentOffers.length;
   const status = useAppSelector(offersSelectors.status);
   const { fetchOffers } = useActionCreators(offersActions);
 
@@ -28,6 +25,13 @@ function MainPage({ cityName }: MainPageProps): JSX.Element {
       fetchOffers();
     }
   }, [status, fetchOffers]);
+
+  const currentOffers = useMemo(() => {
+    const offersByCity = Object.groupBy(offers, (offer) => offer.city.name);
+    return offersByCity[cityName] || [];
+  }, [offers, cityName]);
+
+  const hasOffers = currentOffers.length;
 
 
   return (

@@ -1,9 +1,12 @@
+import { memo } from 'react';
+
 type GalleryProps = {
   images: string[];
   imagesLimit: number;
 }
 
-function Gallery({ images, imagesLimit }: GalleryProps) {
+// eslint-disable-next-line prefer-arrow-callback
+const Gallery = memo(function Gallery({ images, imagesLimit }: GalleryProps) {
   return (
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
@@ -19,6 +22,6 @@ function Gallery({ images, imagesLimit }: GalleryProps) {
       </div>
     </div>
   );
-}
+});
 
 export default Gallery;

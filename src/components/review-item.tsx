@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { Review } from '../types/review';
 import { formatDate } from '../utils';
 import Rating from './rating';
@@ -6,7 +7,8 @@ type ReviewProps = {
   review: Review;
 }
 
-function ReviewsItem({ review }: ReviewProps) {
+// eslint-disable-next-line prefer-arrow-callback
+const ReviewsItem = memo(function ReviewsItem({ review }: ReviewProps) {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -32,6 +34,6 @@ function ReviewsItem({ review }: ReviewProps) {
       </div>
     </li>
   );
-}
+});
 
 export default ReviewsItem;

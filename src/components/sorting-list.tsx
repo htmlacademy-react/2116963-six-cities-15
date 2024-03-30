@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { SORTING_OPTIONS } from '../const';
 import { useActionCreators } from '../hooks/state';
 import { offersActions } from '../store/slices/offers';
@@ -20,7 +20,10 @@ function SortingList({ offers, cityName }: SortingListProps) {
     setCurrentOption(SORTING_OPTIONS[0]);
   }, [cityName]);
 
-  const sortedOffers: Offer[] = currentOption === SORTING_OPTIONS[0] ? offers : [...offers].sort(currentOption.compare);
+  const sortedOffers: Offer[] = useMemo(
+    () => currentOption === SORTING_OPTIONS[0] ? offers : offers.toSorted(currentOption.compare),
+    [currentOption, offers]
+  );
 
   return (
     <section className="cities__places places">

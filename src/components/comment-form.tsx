@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import FormRating from './form-rating';
 import { reviewsActions } from '../store/slices/reviews';
 import { ReviewToSend } from '../types/review';
@@ -17,7 +17,8 @@ type Form = HTMLFormElement & {
   review: HTMLTextAreaElement;
 }
 
-function CommentForm({ offerId }: CommentFormProps): JSX.Element {
+// eslint-disable-next-line prefer-arrow-callback
+const CommentForm = memo(function CommentForm({ offerId }: CommentFormProps): JSX.Element {
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
   const formRef = useRef(null);
   const { postReview } = useActionCreators(reviewsActions);
@@ -89,6 +90,6 @@ function CommentForm({ offerId }: CommentFormProps): JSX.Element {
       </div>
     </form>
   );
-}
+});
 
 export default CommentForm;

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 type CustomLinkProps = {
@@ -10,11 +11,12 @@ type CustomLinkProps = {
   children?: JSX.Element;
 }
 
-function CustomLink({ className, activeClassName, isActive, currentPath, to, children }: CustomLinkProps) {
+// eslint-disable-next-line prefer-arrow-callback
+const CustomLink = memo(function CustomLink({ className, activeClassName, isActive, currentPath, to, children }: CustomLinkProps) {
   if (isActive || currentPath === to) {
     return <span className={classNames(className, activeClassName)}>{children}</span>;
   }
   return <Link className={className} to={to}>{children}</Link>;
-}
+});
 
 export default CustomLink;
