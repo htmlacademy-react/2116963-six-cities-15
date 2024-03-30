@@ -1,5 +1,5 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { REVIEWS_LIMIT, RequestStatus } from '../../const';
+import { RequestStatus } from '../../const';
 import { Review } from '../../types/review';
 import { compareReviewDates } from '../../utils';
 import { fetchReviews, postReview } from '../thunks/reviews';
@@ -44,7 +44,7 @@ const reviewsSlice = createSlice({
 const reviewsActions = { ...reviewsSlice.actions, fetchReviews, postReview };
 const reviewsSelectors = {
   ...reviewsSlice.selectors,
-  lastReviews: createSelector(reviewsSlice.selectors.reviews, (reviews) => reviews.toSorted(compareReviewDates).slice(0, REVIEWS_LIMIT))
+  sortedReviews: createSelector(reviewsSlice.selectors.reviews, (reviews) => reviews.toSorted(compareReviewDates))
 };
 
 export { reviewsActions, reviewsSelectors, reviewsSlice };

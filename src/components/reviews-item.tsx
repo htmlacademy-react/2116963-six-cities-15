@@ -3,12 +3,12 @@ import type { Review } from '../types/review';
 import { formatDate } from '../utils';
 import Rating from './rating';
 
-type ReviewProps = {
+type ReviewsItemProps = {
   review: Review;
 }
 
 // eslint-disable-next-line prefer-arrow-callback
-const ReviewsItem = memo(function ReviewsItem({ review }: ReviewProps) {
+const ReviewsItem = memo(function ReviewsItem({ review }: ReviewsItemProps) {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">

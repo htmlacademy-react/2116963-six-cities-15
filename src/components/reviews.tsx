@@ -1,11 +1,11 @@
-import { memo, useEffect } from 'react';
-import { RequestStatus } from '../const';
+import { memo, useEffect, useMemo } from 'react';
+import { REVIEWS_LIMIT, RequestStatus } from '../const';
 import { useActionCreators, useAppSelector } from '../hooks/state';
 import { reviewsActions, reviewsSelectors } from '../store/slices/reviews';
 import LoggedWrapper from './logged-wrapper';
 import Loading from './loading/loading';
-import ReviewsItem from './review-item';
-import CommentForm from './comment-form';
+import ReviewsItem from './reviews-item';
+import ReviewForm from './review-form';
 
 type ReviewsProps = {
   offerId: string;
@@ -14,7 +14,9 @@ type ReviewsProps = {
 // eslint-disable-next-line prefer-arrow-callback
 const Reviews = memo(function Reviews({ offerId }: ReviewsProps) {
   const { fetchReviews, clear } = useActionCreators(reviewsActions);
-  const reviews = useAppSelector(reviewsSelectors.lastReviews);
+  const sortedReviews = useAppSelector(reviewsSelectors.sortedReviews);
+  const reviews = useMemo(() => sortedReviews.slice(0, REVIEWS_LIMIT), [sortedReviews]);
+
   const status = useAppSelector(reviewsSelectors.status);
 
   useEffect(() => {
@@ -41,14 +43,15 @@ const Reviews = memo(function Reviews({ offerId }: ReviewsProps) {
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
-        Reviews · <span className="reviews__amount">{reviews.length}</span>
+        Reviews · <span className="reviews__amount">{sortedReviews.length}</span>
       </h2>
       {status === RequestStatus.Succeeded}
       <ul className="reviews__list">
-        {reviews.map((review) => <ReviewsItem key={review.date + review.id} review={review} />)}
+        {reviews
+          .map((review) => <ReviewsItem key={review.date + review.id} review={review} />)}
       </ul>
       <LoggedWrapper>
-        <CommentForm offerId={offerId} />
+        <ReviewForm offerId={offerId} />
       </LoggedWrapper>
     </section>
   );

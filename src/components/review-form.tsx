@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 const TEXT_MIN_LENGTH = 50;
 const TEXT_MAX_LENGTH = 300;
 
-type CommentFormProps = {
+type ReviewFormProps = {
   offerId: string;
 }
 
@@ -18,7 +18,7 @@ type Form = HTMLFormElement & {
 }
 
 // eslint-disable-next-line prefer-arrow-callback
-const CommentForm = memo(function CommentForm({ offerId }: CommentFormProps): JSX.Element {
+const ReviewForm = memo(function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
   const formRef = useRef(null);
   const { postReview } = useActionCreators(reviewsActions);
@@ -92,4 +92,4 @@ const CommentForm = memo(function CommentForm({ offerId }: CommentFormProps): JS
   );
 });
 
-export default CommentForm;
+export default ReviewForm;
