@@ -16,7 +16,12 @@ const initialState: InitialState = {
 const favoritesSlice = createSlice({
   name: 'favorites',
   initialState,
-  reducers: {},
+  reducers: {
+    clearFavorites: (state) => {
+      state.favorites = [];
+      state.status = RequestStatus.Idle;
+    }
+  },
   selectors: {
     favorites: (state) => state.favorites,
     favoritesLength: (state) => state.favorites.length,

@@ -1,14 +1,14 @@
+import classNames from 'classnames';
+import { useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import CustomLink from '../components/custom-link';
 import Header from '../components/header';
 import OffersList from '../components/offers-list';
 import { CITIES, RequestStatus } from '../const';
-import type { CityName } from '../types/offer';
-import classNames from 'classnames';
 import { useActionCreators, useAppSelector } from '../hooks/state';
 import { offersActions, offersSelectors } from '../store/slices/offers';
-import { useEffect, useMemo } from 'react';
+import type { CityName } from '../types/offer';
 
 type MainPageProps = {
   cityName: CityName;

@@ -23,6 +23,11 @@ const offersSlice = createSlice({
   reducers: {
     setActiveId: (state, action: PayloadAction<string>) => {
       state.activeId = action.payload;
+    },
+    clearOffers: (state) => {
+      state.offers = [];
+      state.activeId = '';
+      state.status = RequestStatus.Idle;
     }
   },
   selectors: {

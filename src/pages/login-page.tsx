@@ -1,22 +1,40 @@
 import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { toast } from 'react-toastify';
 import Header from '../components/header';
 import { useActionCreators } from '../hooks/state';
+import { favoritesActions } from '../store/slices/favorites';
+import { offersActions } from '../store/slices/offers';
 import { userActions } from '../store/slices/user';
 
 function LoginPage(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const { login } = useActionCreators(userActions);
+  const { clearOffers } = useActionCreators(offersActions);
+  const { clearFavorites } = useActionCreators(favoritesActions);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
-      login({
-        email: emailRef.current.value,
-        password: passwordRef.current.value
-      });
+      toast.promise(
+        login({
+          email: emailRef.current.value,
+          password: passwordRef.current.value
+        }).unwrap(),
+        {
+          pending: 'Login...',
+          success: {
+            render: () => {
+              clearOffers();
+              clearFavorites();
+              return 'Logged!';
+            }
+          },
+          error: 'Failed to login. Please try again'
+        }
+      );
     }
   };
 
