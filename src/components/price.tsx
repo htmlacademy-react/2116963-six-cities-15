@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 type PriceProps = {
   classStart: string;
   price: number;
@@ -5,7 +7,7 @@ type PriceProps = {
 
 const CARD_CLASS = 'place-card';
 
-function Price({ classStart, price }: PriceProps) {
+function Price_({ classStart, price }: PriceProps) {
   const isCard = classStart === CARD_CLASS;
 
   return (
@@ -15,5 +17,7 @@ function Price({ classStart, price }: PriceProps) {
     </div>
   );
 }
+
+const Price = memo(Price_);
 
 export default Price;

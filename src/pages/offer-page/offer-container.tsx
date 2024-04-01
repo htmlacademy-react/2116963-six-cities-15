@@ -23,7 +23,7 @@ function OfferContainer_({ offer, offerId }: OfferContainerProps) {
           <h1 className="offer__name">
             {offer.title}
           </h1>
-          <BookmarkButton classStart='offer' width={31} height={33} />
+          <BookmarkButton classStart='offer' width={31} height={33} offerId={offer.id} isFavorite={offer.isFavorite} />
         </div>
         <Rating classStart='offer' rating={offer.rating} />
         <Features offer={offer} />

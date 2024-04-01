@@ -35,6 +35,7 @@ export const enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
+  Favorites = '/favorite',
 }
 
 export const enum RequestStatus {
