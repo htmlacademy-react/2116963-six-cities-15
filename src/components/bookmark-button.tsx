@@ -5,6 +5,7 @@ import { AppRoute, AuthorizationStatus } from '../const';
 import { useActionCreators, useAppSelector } from '../hooks/state';
 import { favoritesActions } from '../store/slices/favorites';
 import { userSelectors } from '../store/slices/user';
+import { toast } from 'react-toastify';
 
 type BookmarkButtonProps = {
   classStart: string;
@@ -23,8 +24,14 @@ function BookmarkButton({ classStart, width, height, offerId, isFavorite }: Book
 
   function handleClick() {
     if (isAuthorized) {
-      setIsActive((prev) => !prev);
-      postFavorite({ offerId, isFavorite: !isActive });
+      postFavorite({ offerId, isFavorite: !isActive })
+        .unwrap()
+        .then(() => {
+          setIsActive((prev) => !prev);
+        })
+        .catch(() => {
+          toast.error('Failed. Please try again');
+        });
     } else {
       navigate(AppRoute.Login);
     }

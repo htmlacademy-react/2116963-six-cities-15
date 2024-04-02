@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { formatRating } from '../utils';
 
 type RatingProps = {
@@ -7,7 +8,7 @@ type RatingProps = {
 
 const OFFER_CLASS = 'offer';
 
-function Rating({ classStart, rating }: RatingProps) {
+function Rating_({ classStart, rating }: RatingProps) {
   const isOffer = classStart === OFFER_CLASS;
 
   return (
@@ -20,5 +21,7 @@ function Rating({ classStart, rating }: RatingProps) {
     </div>
   );
 }
+
+const Rating = memo(Rating_);
 
 export default Rating;

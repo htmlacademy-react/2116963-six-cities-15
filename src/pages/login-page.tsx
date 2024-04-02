@@ -2,6 +2,7 @@ import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-toastify';
 import Header from '../components/header';
+import RandomLink from '../components/random-link';
 import { useActionCreators } from '../hooks/state';
 import { favoritesActions } from '../store/slices/favorites';
 import { offersActions } from '../store/slices/offers';
@@ -18,23 +19,18 @@ function LoginPage(): JSX.Element {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
-      toast.promise(
-        login({
-          email: emailRef.current.value,
-          password: passwordRef.current.value
-        }).unwrap(),
-        {
-          pending: 'Login...',
-          success: {
-            render: () => {
-              clearOffers();
-              clearFavorites();
-              return 'Logged!';
-            }
-          },
-          error: 'Failed to login. Please try again'
-        }
-      );
+      login({
+        email: emailRef.current.value,
+        password: passwordRef.current.value
+      })
+        .unwrap()
+        .then(() => {
+          clearOffers();
+          clearFavorites();
+        })
+        .catch(() => {
+          toast.error('Failed to login. Please try again');
+        });
     }
   };
 
@@ -69,6 +65,9 @@ function LoginPage(): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
+                  pattern='^(?=.*[a-zA-Z])(?=.*\d).{2,}$'
+                  onInput={(evt) => evt.currentTarget.setCustomValidity('')}
+                  onInvalid={(evt) => evt.currentTarget.setCustomValidity('Password should contain at least one letter and one digit!')}
                   required
                 />
               </div>
@@ -79,9 +78,7 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <RandomLink />
             </div>
           </section>
         </div>

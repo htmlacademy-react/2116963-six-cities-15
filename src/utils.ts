@@ -1,3 +1,4 @@
+import { CITIES } from './const';
 import type { Offer } from './types/offer';
 import type { Review } from './types/review';
 
@@ -28,4 +29,12 @@ export function getNearOffers(
     }
   }
   return nearOffers;
+}
+
+export function makeLowerCaseFirstLetter(str: string) {
+  return str.charAt(0).toLowerCase() + str.slice(1);
+}
+
+export function getRandomArrayItem(items: typeof CITIES) {
+  return items[Math.floor(Math.random() * items.length)];
 }
