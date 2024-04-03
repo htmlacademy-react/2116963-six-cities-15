@@ -17,6 +17,7 @@ type BookmarkButtonProps = {
 
 function BookmarkButton({ classStart, width, height, offerId, isFavorite }: BookmarkButtonProps) {
   const [isActive, setIsActive] = useState(isFavorite);
+  const [isDisabled, setIsDisabled] = useState(false);
   const authorizationStatus = useAppSelector(userSelectors.authorizationStatus);
   const { postFavorite } = useActionCreators(favoritesActions);
   const navigate = useNavigate();
@@ -24,13 +25,16 @@ function BookmarkButton({ classStart, width, height, offerId, isFavorite }: Book
 
   function handleClick() {
     if (isAuthorized) {
+      setIsDisabled(true);
       postFavorite({ offerId, isFavorite: !isActive })
         .unwrap()
         .then(() => {
           setIsActive((prev) => !prev);
+          setIsDisabled(false);
         })
         .catch(() => {
           toast.error('Failed. Please try again');
+          setIsDisabled(false);
         });
     } else {
       navigate(AppRoute.Login);
@@ -41,7 +45,7 @@ function BookmarkButton({ classStart, width, height, offerId, isFavorite }: Book
     <button className={classNames(
       `${classStart}__bookmark-button button`,
       { [`${classStart}__bookmark-button--active`]: isActive && isAuthorized }
-    )} type="button" onClick={handleClick}
+    )} type="button" onClick={handleClick} disabled={isDisabled}
     >
       <svg className={`${classStart}__bookmark-icon`} width={width} height={height}>
         <use xlinkHref="#icon-bookmark" />

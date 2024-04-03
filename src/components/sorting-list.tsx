@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { SORTING_OPTIONS } from '../const';
 import { useActionCreators } from '../hooks/state';
 import { offersActions } from '../store/slices/offers';
@@ -20,6 +20,10 @@ function SortingList({ offers, cityName }: SortingListProps) {
     () => currentOption === SORTING_OPTIONS[0] ? offers : offers.toSorted(currentOption.compare),
     [currentOption, offers]
   );
+
+  useEffect(() => () => {
+    setActiveId('');
+  }, [setActiveId]);
 
   return (
     <section className="cities__places places">

@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { CITIES } from '../const';
-import { getRandomArrayItem } from '../utils';
+import { getRandomItem } from '../utils';
 
 function RandomLink() {
-  const city = getRandomArrayItem(CITIES);
+  const city = getRandomItem(CITIES);
 
   return (
     <Link className="locations__item-link" to={`/${city.slug}`}>

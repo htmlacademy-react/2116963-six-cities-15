@@ -35,6 +35,6 @@ export function makeLowerCaseFirstLetter(str: string) {
   return str.charAt(0).toLowerCase() + str.slice(1);
 }
 
-export function getRandomArrayItem(items: typeof CITIES) {
+export function getRandomItem(items: typeof CITIES) {
   return items[Math.floor(Math.random() * items.length)];
 }
