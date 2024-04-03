@@ -15,7 +15,7 @@ export const fetchFavorites = createAsyncThunk<Offer[], undefined, ThunkApi>(
 export const postFavorite = createAsyncThunk<Offer, FavoriteStatus, ThunkApi>(
   'favorites/postFavorite',
   async ({ offerId, isFavorite }, { extra: api }) => {
-    const response = await api.post<Offer>(`${APIRoute.Favorites}/${offerId}/${+isFavorite}`);
+    const response = await api.post<Offer>(`${APIRoute.Favorites}/${offerId}/${Number(isFavorite)}`);
     return response.data;
   },
 );

@@ -8,7 +8,6 @@ import { RequestStatus } from '../../const';
 import { useActionCreators, useAppSelector } from '../../hooks/state';
 import useScrollToTop from '../../hooks/use-scroll-to-top';
 import { offerActions, offerSelectors } from '../../store/slices/offer';
-import { FullOffer } from '../../types/offer';
 import { getNearOffers } from '../../utils';
 import NotFoundPage from '../not-found-page';
 import Gallery from './gallery';
@@ -23,7 +22,7 @@ function OfferPage(): JSX.Element {
   const { id: offerId } = useParams() as { id: string };
   const { fetchOffer, fetchNearOffers, clear } = useActionCreators(offerActions);
   const status = useAppSelector(offerSelectors.status);
-  const offer = useAppSelector(offerSelectors.offer) as FullOffer;
+  const offer = useAppSelector(offerSelectors.offer);
   const allNearOffers = useAppSelector(offerSelectors.nearOffers);
   const nearOffers = useMemo(() => getNearOffers(allNearOffers, offerId, NEAR_OFFERS_LIMIT), [allNearOffers, offerId]);
 
@@ -43,7 +42,7 @@ function OfferPage(): JSX.Element {
     return <Loading />;
   }
 
-  if (status === RequestStatus.Failed) {
+  if (status === RequestStatus.Failed || offer === null) {
     return <NotFoundPage />;
   }
 

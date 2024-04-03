@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '../../components/card';
 import type { CityName, Offer } from '../../types/offer';
@@ -9,7 +8,7 @@ type FavoritesListProps = {
 }
 
 function FavoritesList({ offers }: FavoritesListProps) {
-  const offersByCity = useMemo(() => Object.groupBy(offers, (offer) => offer.city.name), [offers]);
+  const offersByCity = Object.groupBy(offers, (offer) => offer.city.name);
   const cities = Object.keys(offersByCity) as CityName[];
   return (
     <ul className="favorites__list">
