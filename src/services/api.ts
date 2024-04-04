@@ -10,7 +10,6 @@ type DetailMessageType = {
 
 const STATUS_CODES = new Set([
   StatusCodes.BAD_REQUEST,
-  StatusCodes.NOT_FOUND
 ]);
 
 const shouldDisplayError = (response: AxiosResponse) => STATUS_CODES.has(response.status);

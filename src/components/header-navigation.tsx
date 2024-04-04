@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { useActionCreators, useAppSelector } from '../hooks/state';
 import { userActions, userSelectors } from '../store/slices/user';
+import HeaderProfile from './header-profile';
 
 type HeaderNavigationProps = {
   currentPath: string;
@@ -11,7 +12,6 @@ type HeaderNavigationProps = {
 function HeaderNavigation_({ currentPath }: HeaderNavigationProps): JSX.Element {
   const authorizationStatus = useAppSelector(userSelectors.authorizationStatus);
   const { logout } = useActionCreators(userActions);
-  const userData = useAppSelector(userSelectors.userData);
 
   const handleLogOut = () => {
     logout();
@@ -23,15 +23,7 @@ function HeaderNavigation_({ currentPath }: HeaderNavigationProps): JSX.Element 
       {authorizationStatus === AuthorizationStatus.Auth ?
         <ul className="header__nav-list">
           <li className="header__nav-item user">
-            <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-              <div className="header__avatar-wrapper user__avatar-wrapper">
-                <img src={userData?.avatarUrl} alt="avatar" width={20} height={20} style={{borderRadius: '50%'}}/>
-              </div>
-              <span className="header__user-name user__name">
-                {userData?.email}
-              </span>
-              <span className="header__favorite-count">0</span>
-            </Link>
+            <HeaderProfile />
           </li>
           <li className="header__nav-item">
             <Link className="header__nav-link" to={currentPath} onClick={handleLogOut}>

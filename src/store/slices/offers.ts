@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus } from '../../const';
 import { Offer } from '../../types/offer';
 import { fetchOffers } from '../thunks/offers';
+import { postFavorite } from '../thunks/favorites';
 
 type InitialState = {
   offers: Offer[];
@@ -22,6 +23,11 @@ const offersSlice = createSlice({
   reducers: {
     setActiveId: (state, action: PayloadAction<string>) => {
       state.activeId = action.payload;
+    },
+    clearOffers: (state) => {
+      state.offers = [];
+      state.activeId = '';
+      state.status = RequestStatus.Idle;
     }
   },
   selectors: {
@@ -37,10 +43,17 @@ const offersSlice = createSlice({
       state.offers = action.payload;
       state.status = RequestStatus.Succeeded;
     });
+    builder.addCase(postFavorite.fulfilled, (state, action) => {
+      const changedOffer = action.payload;
+      const offerToChange = state.offers.find((offer) => offer.id === changedOffer.id);
+      if (offerToChange) {
+        offerToChange.isFavorite = changedOffer.isFavorite;
+      }
+    });
   },
 });
 
-const offersActions = {...offersSlice.actions, fetchOffers};
+const offersActions = { ...offersSlice.actions, fetchOffers };
 const offersSelectors = offersSlice.selectors;
 
 export { offersActions, offersSelectors, offersSlice };

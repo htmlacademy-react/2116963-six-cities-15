@@ -1,15 +1,14 @@
-import Header from '../../components/header';
-import Footer from '../../components/footer';
-import { Helmet } from 'react-helmet-async';
 import classNames from 'classnames';
+import { Helmet } from 'react-helmet-async';
 import EmptyList from '../../components/empty-list';
-import FavoritesList from './favorites-list';
+import Footer from '../../components/footer';
+import Header from '../../components/header';
 import { useAppSelector } from '../../hooks/state';
-import { offersSelectors } from '../../store/slices/offers';
+import { favoritesSelectors } from '../../store/slices/favorites';
+import FavoritesList from './favorites-list';
 
 function FavoritesPage(): JSX.Element {
-  const allOffers = useAppSelector(offersSelectors.offers);
-  const offers = allOffers.filter((offer) => offer.isFavorite);
+  const offers = useAppSelector(favoritesSelectors.favorites);
 
   return (
     <div className={classNames('page', { 'page--favorites-empty': !offers.length })}>

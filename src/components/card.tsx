@@ -50,7 +50,7 @@ function Card_({ classStart, offer, setActiveId }: CardProps): JSX.Element {
       <div className={classNames({ 'favorites-card__info': isFavorites }, 'place-card__info')}>
         <div className="place-card__price-wrapper">
           <Price classStart='place-card' price={offer.price} />
-          <BookmarkButton classStart='place-card' width={18} height={19} />
+          <BookmarkButton classStart='place-card' width={18} height={19} offerId={offer.id} isFavorite={offer.isFavorite} />
         </div>
         <Rating classStart='place-card' rating={offer.rating} />
         <h2 className="place-card__name">
