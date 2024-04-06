@@ -39,6 +39,7 @@ const userSlice = createSlice({
       state.authorizationStatus = AuthorizationStatus.Auth;
     });
     builder.addCase(logout.fulfilled, (state) => {
+      state.userData = null;
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     });
   },

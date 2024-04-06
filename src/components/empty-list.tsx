@@ -21,7 +21,7 @@ function EmptyList({ classStart, cityName }: EmptyListProps) {
     <div className={`${classStart}__status-wrapper`}>
       <b className={`${classStart}__status`}>{Text[classStart].Title}</b>
       <p className={`${classStart}__status-description`}>
-        {Text[classStart].Description + cityName}
+        {Text[classStart].Description + (cityName || '')}
       </p>
     </div>
   );
