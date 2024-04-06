@@ -24,7 +24,6 @@ const favoritesSlice = createSlice({
   },
   selectors: {
     favorites: (state) => state.favorites,
-    favoritesLength: (state) => state.favorites.length,
     status: (state) => state.status,
   },
   extraReducers: (builder) => {

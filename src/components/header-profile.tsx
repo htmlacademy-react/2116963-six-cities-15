@@ -8,7 +8,7 @@ import { userSelectors } from '../store/slices/user';
 function HeaderProfile(): JSX.Element {
   const userData = useAppSelector(userSelectors.userData);
   const favoritesStatus = useAppSelector(favoritesSelectors.status);
-  const favoritesLength = useAppSelector(favoritesSelectors.favoritesLength);
+  const favorites = useAppSelector(favoritesSelectors.favorites);
   const { fetchFavorites } = useActionCreators(favoritesActions);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function HeaderProfile(): JSX.Element {
       <span className="header__user-name user__name">
         {userData?.email}
       </span>
-      <span className="header__favorite-count">{favoritesLength}</span>
+      <span className="header__favorite-count">{favorites.length}</span>
     </Link>
   );
 }
