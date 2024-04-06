@@ -84,6 +84,6 @@ describe('Async actions', () => {
         expect(postReviewFulfilled.payload)
           .toEqual(responseReview);
       });
-    })
+    });
   });
 });
