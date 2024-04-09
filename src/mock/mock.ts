@@ -4,7 +4,9 @@ import { State } from '../types/state';
 import { createAPI } from '../services/api';
 import { Review } from '../types/review';
 import { UserData } from '../types/user';
-import { AuthorizationStatus, RequestStatus } from '../const';
+import { AuthorizationStatus, CITIES, RequestStatus } from '../const';
+import { faker } from '@faker-js/faker';
+import { getRandomItem } from '../utils';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
@@ -38,89 +40,85 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
 
 export function makeFakeOffer(isFavorite = false): Offer {
   return {
-    'id': 'f644d71b-def4-4a05-9878-f557b80f3ae0',
-    'title': 'Wood and stone place',
-    'type': 'hotel',
-    'price': 409,
-    'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
-    'city': {
-      'name': 'Paris',
-      'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
-        'zoom': 13
+    id: faker.string.uuid(),
+    title: faker.lorem.words(),
+    type: faker.helpers.arrayElement(['hotel', 'apartment', 'house']),
+    price: faker.number.int({ min: 50, max: 1000 }),
+    previewImage: faker.image.url(),
+    city: {
+      name: getRandomItem(CITIES).name,
+      location: {
+        latitude: faker.location.latitude(),
+        longitude: faker.location.longitude(),
+        zoom: faker.number.int({ min: 10, max: 15 })
       }
     },
-    'location': {
-      'latitude': 48.868610000000004,
-      'longitude': 2.342499,
-      'zoom': 16
+    location: {
+      latitude: faker.location.latitude(),
+      longitude: faker.location.longitude(),
+      zoom: faker.number.int({ min: 10, max: 15 })
     },
-    'isFavorite': isFavorite,
-    'isPremium': true,
-    'rating': 3
+    isFavorite,
+    isPremium: faker.datatype.boolean(),
+    rating: faker.number.float({ min: 1, max: 5 })
   };
 }
 
 export function makeFakeFullOffer(): FullOffer {
   return {
-    'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
-    'title': 'Beautiful & luxurious studio at great location',
-    'type': 'apartment',
-    'price': 120,
-    'city': {
-      'name': 'Amsterdam',
-      'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
-        'zoom': 8
+    id: faker.string.uuid(),
+    title: faker.lorem.sentence(),
+    type: faker.helpers.arrayElement(['hotel', 'apartment', 'house']),
+    price: faker.number.int({ min: 50, max: 1000 }),
+    city: {
+      name: getRandomItem(CITIES).name,
+      location: {
+        latitude: faker.location.latitude(),
+        longitude: faker.location.longitude(),
+        zoom: faker.number.int({ min: 8, max: 12 })
       }
     },
-    'location': {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
-      'zoom': 8
+    location: {
+      latitude: faker.location.latitude(),
+      longitude: faker.location.longitude(),
+      zoom: faker.number.int({ min: 8, max: 12 })
     },
-    'isFavorite': false,
-    'isPremium': false,
-    'rating': 4,
-    'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-    'bedrooms': 3,
-    'goods': [
-      'Heating'
-    ],
-    'host': {
-      'name': 'Oliver Conner',
-      'avatarUrl': 'https://url-to-image/image.png',
-      'isPro': false
+    isFavorite: faker.datatype.boolean(),
+    isPremium: faker.datatype.boolean(),
+    rating: faker.number.float({ min: 1, max: 5 }),
+    description: faker.lorem.paragraph(),
+    bedrooms: faker.number.int({ min: 1, max: 6 }),
+    goods: [faker.lorem.word()],
+    host: {
+      name: faker.person.fullName(),
+      avatarUrl: faker.image.avatar(),
+      isPro: faker.datatype.boolean()
     },
-    'images': [
-      'https://url-to-image/image.png'
-    ],
-    'maxAdults': 4
+    images: [faker.image.url()],
+    maxAdults: faker.number.int({ min: 1, max: 10 })
   };
 }
 
 export function makeFakeReview(): Review {
   return {
-    'id': 'f644d71b-def4-4a05-9878-f557b80f3ae0',
-    'date': '2019-05-08T14:13:56.569Z',
-    'user': {
-      'name': 'Oliver Conner',
-      'avatarUrl': 'https://url-to-image/image.png',
-      'isPro': false
+    id: faker.string.uuid(),
+    date: faker.date.past().toISOString(),
+    user: {
+      name: faker.person.fullName(),
+      avatarUrl: faker.image.avatar(),
+      isPro: faker.datatype.boolean()
     },
-    'comment': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-    'rating': 4
+    comment: faker.lorem.paragraph(),
+    rating: faker.number.int({ min: 1, max: 5 })
   };
 }
 
 export function makeFakeUser(): UserData {
   return {
-    'name': 'Oliver Conner',
-    'avatarUrl': 'https://url-to-image/image.png',
-    'isPro': false,
-    'email': 'Oliver.conner@gmail.com',
-    'token': 'T2xpdmVyLmNvbm5lckBnbWFpbC5jb20='
+    name: faker.person.fullName(),
+    avatarUrl: faker.image.avatar(),
+    isPro: faker.datatype.boolean(),
+    email: faker.internet.email(),
+    token: faker.string.sample(32)
   };
 }

@@ -48,7 +48,7 @@ describe('Reviews Slice', () => {
 
   describe('Selectors', () => {
     const state = {
-      reviews: [makeFakeReview()],
+      reviews: [makeFakeReview(), makeFakeReview(), makeFakeReview()],
       status: RequestStatus.Succeeded
     };
 
@@ -62,6 +62,13 @@ describe('Reviews Slice', () => {
       const expectedStatus = state.status;
       const result = reviewsSelectors.status.unwrapped(state);
       expect(result).toBe(expectedStatus);
+    });
+
+    it('should return review sorted by date', () => {
+      const reviews = reviewsSelectors.sortedReviews.resultFunc(state.reviews);
+      const result = new Date(reviews[0].date).getTime() >= new Date(reviews[1].date).getTime() &&
+        new Date(reviews[1].date).getTime() >= new Date(reviews[2].date).getTime();
+      expect(result).toBe(true);
     });
   });
 

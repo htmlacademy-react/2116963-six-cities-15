@@ -9,6 +9,7 @@ describe('Component: EmptyList', () => {
 
     render(<Price classStart={className} price={price} />);
 
+    expect(screen.getByText(new RegExp(`${price}`, 'i'))).toBeInTheDocument();
     expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
 
@@ -19,6 +20,7 @@ describe('Component: EmptyList', () => {
 
     render(<Price classStart={className} price={price} />);
 
+    expect(screen.getByText(new RegExp(`${price}`, 'i'))).toBeInTheDocument();
     expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
 });

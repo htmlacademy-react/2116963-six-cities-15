@@ -11,10 +11,9 @@ import Host from './host';
 
 type OfferContainerProps = {
   offer: FullOffer;
-  offerId: string;
 }
 
-function OfferContainer_({ offer, offerId }: OfferContainerProps) {
+function OfferContainer_({ offer }: OfferContainerProps) {
   return (
     <div className="offer__container container">
       <div className="offer__wrapper">
@@ -30,7 +29,7 @@ function OfferContainer_({ offer, offerId }: OfferContainerProps) {
         <Price classStart='offer' price={offer.price} />
         {Boolean(offer.goods.length) && <Goods goods={offer.goods} />}
         <Host offer={offer} />
-        <Reviews offerId={offerId} />
+        <Reviews offerId={offer.id} />
       </div>
     </div>
   );

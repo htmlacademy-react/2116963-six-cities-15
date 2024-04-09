@@ -11,7 +11,7 @@ import { memo } from 'react';
 type CardProps = {
   classStart: string;
   offer: Offer;
-  setActiveId?: ActionCreatorWithPayload<string, 'offers/setActiveId'>;
+  setActiveId?: ActionCreatorWithPayload<string, 'offers/setActiveId'> | (() => void);
 }
 
 const FAVORITES = 'favorites';
