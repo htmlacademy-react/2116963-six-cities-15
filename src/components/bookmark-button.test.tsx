@@ -9,15 +9,30 @@ import { postFavorite } from '../store/thunks/favorites';
 import BookmarkButton from './bookmark-button';
 
 describe('Component: BookmarkButton', () => {
-  it('should render correctly and run postFavorite action on click', async () => {
-    const mockHistory = createMemoryHistory();
-    mockHistory.push(AppRoute.RootCity);
+  const mockHistory = createMemoryHistory();
+
+  beforeEach(() => {
+    mockHistory.push(AppRoute.Root);
+  });
+
+  it('should render correctly', () => {
+    const className = 'place-card';
+    const offer = makeFakeOffer();
+    const componentWithHistory = withHistory(<BookmarkButton classStart={className} width={18} height={19} offerId={offer.id} isFavorite={offer.isFavorite} />);
+    const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore());
+
+    render(withStoreComponent);
+
+    expect(screen.getByRole('button')).toHaveClass(`${className}__bookmark-button`);
+  });
+
+  it('should run postFavorite action on click when authorized', async () => {
     const className = 'place-card';
     const offer = makeFakeOffer();
     const expectedText = 'redirect';
     const componentWithHistory = withHistory(
       <Routes>
-        <Route path={AppRoute.RootCity} element={<BookmarkButton classStart={className} width={18} height={19} offerId={offer.id} isFavorite={offer.isFavorite} />} />
+        <Route path={AppRoute.Root} element={<BookmarkButton classStart={className} width={18} height={19} offerId={offer.id} isFavorite={offer.isFavorite} />} />
         <Route path={AppRoute.Login} element={<span>{expectedText}</span>} />
       </Routes>,
       mockHistory
@@ -51,14 +66,12 @@ describe('Component: BookmarkButton', () => {
   });
 
   it('should redirect when not authorized', async () => {
-    const mockHistory = createMemoryHistory();
-    mockHistory.push(AppRoute.RootCity);
     const className = 'place-card';
     const offer = makeFakeOffer();
     const expectedText = 'redirect';
     const componentWithHistory = withHistory(
       <Routes>
-        <Route path={AppRoute.RootCity} element={<BookmarkButton classStart={className} width={18} height={19} offerId={offer.id} isFavorite={offer.isFavorite} />} />
+        <Route path={AppRoute.Root} element={<BookmarkButton classStart={className} width={18} height={19} offerId={offer.id} isFavorite={offer.isFavorite} />} />
         <Route path={AppRoute.Login} element={<span>{expectedText}</span>} />
       </Routes>,
       mockHistory

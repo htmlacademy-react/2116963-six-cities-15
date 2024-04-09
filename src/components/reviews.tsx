@@ -44,7 +44,6 @@ function Reviews_({ offerId }: ReviewsProps) {
       <h2 className="reviews__title">
         Reviews · <span className="reviews__amount">{sortedReviews.length}</span>
       </h2>
-      {status === RequestStatus.Succeeded}
       <ul className="reviews__list">
         {reviews
           .map((review) => <ReviewsItem key={review.date + review.id} review={review} />)}

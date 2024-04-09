@@ -6,7 +6,8 @@ import { fetchNearOffers, fetchOffer } from '../../store/thunks/offer';
 import OfferPage from './offer-page';
 
 describe('Component: OfferPage', () => {
-  vi.spyOn(window, 'scrollTo').mockImplementation(() => vi.fn());
+  const scrollToMock = vi.fn();
+  window.scrollTo = scrollToMock;
 
   it('should start loading offer', () => {
     const withHistoryComponent = withHistory(<OfferPage />);

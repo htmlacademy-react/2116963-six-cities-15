@@ -8,7 +8,26 @@ import { withHistory, withStore } from '../mock/mock-component';
 import Card from './card';
 
 describe('Component: Card', () => {
-  it('should render correct, use function on hover and unhover, and direct on click to offer page', async () => {
+  it('should render correct', () => {
+    const className = 'cities_card';
+    const offer = makeFakeOffer();
+    const mockFn = vi.fn();
+
+    const componentWithHistory = withHistory(<Card classStart={className} offer={offer} setActiveId={mockFn} />);
+    const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore());
+
+    render(withStoreComponent);
+
+    if (offer.isPremium) {
+      expect(screen.getByText('Premium')).toBeInTheDocument();
+    }
+    expect(screen.getByAltText('Place image')).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${offer.price}`, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(offer.title)).toBeInTheDocument();
+    expect(screen.getByText(offer.type)).toBeInTheDocument();
+  });
+
+  it('should use function on hover and unhover, and direct on click to offer page', async () => {
     const className = 'cities_card';
     const offer = makeFakeOffer();
     const mockFn = vi.fn();
@@ -23,17 +42,9 @@ describe('Component: Card', () => {
       </Routes>,
       mockHistory
     );
-    const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore({}));
+    const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore());
 
     render(withStoreComponent);
-
-    if (offer.isPremium) {
-      expect(screen.getByText('Premium')).toBeInTheDocument();
-    }
-    expect(screen.getByAltText('Place image')).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${offer.price}`, 'i'))).toBeInTheDocument();
-    expect(screen.getByText(offer.title)).toBeInTheDocument();
-    expect(screen.getByText(offer.type)).toBeInTheDocument();
 
     await userEvent.hover(screen.getByRole('article'));
     await userEvent.unhover(screen.getByRole('article'));

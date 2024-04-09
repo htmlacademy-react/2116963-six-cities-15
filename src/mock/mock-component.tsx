@@ -1,6 +1,6 @@
 import { MemoryHistory, createMemoryHistory } from 'history';
 import { HelmetProvider } from 'react-helmet-async';
-import HistoryRouter from './history-route';
+import HistoryRouter from './history-router';
 import { createAPI } from '../services/api';
 import MockAdapter from 'axios-mock-adapter';
 import { withExtraArgument } from '../../node_modules/@reduxjs/toolkit/node_modules/redux-thunk';

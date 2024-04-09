@@ -12,6 +12,8 @@ describe('Component: NearPlaces', () => {
     render(withStoreComponent);
 
     expect(screen.getByText('Other places in the neighbourhood')).toBeInTheDocument();
-    expect(screen.getAllByRole('article')).toHaveLength(nearOffers.length);
+    nearOffers.forEach((offer) => {
+      expect(screen.getByText(offer.title)).toBeInTheDocument();
+    });
   });
 });
