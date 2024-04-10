@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { makeFakeOffer, makeFakeStore } from '../mock/mock';
 import { withHistory, withStore } from '../mock/mock-component';
 import ReviewForm from './review-form';
+import userEvent from '@testing-library/user-event';
 
 describe('Component: ReviewForm', () => {
   it('should render correctly', () => {
@@ -29,7 +30,7 @@ describe('Component: ReviewForm', () => {
   //   render(preparedComponent);
 
   //   const textarea = screen.getByRole('textbox');
-  //   const ratingStar = screen.getAllByRole('radio')[2];
+  //   const ratingStar = screen.getAllByRole('radio')[0];
 
   //   await userEvent.type(
   //     textarea,

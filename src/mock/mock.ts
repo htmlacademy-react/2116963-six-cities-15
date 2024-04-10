@@ -64,6 +64,11 @@ export function makeFakeOffer(isFavorite = false): Offer {
   };
 }
 
+export function generateCityOffer() {
+  const offer = makeFakeOffer();
+  return {...offer, city: {...offer.city, name: CITIES[0].name}};
+}
+
 export function makeFakeFullOffer(): FullOffer {
   return {
     id: faker.string.uuid(),

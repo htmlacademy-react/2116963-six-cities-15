@@ -1,6 +1,6 @@
-import { CITIES } from "./const";
+import { CITIES } from './const';
 import { makeFakeOffer, makeFakeReview } from './mock/mock';
-import { compareReviewDates, formatDate, formatRating, getNearOffers, getRandomItem, makeLowerCaseFirstLetter } from "./utils";
+import { compareReviewDates, formatDate, formatRating, getNearOffers, getRandomItem, makeLowerCaseFirstLetter } from './utils';
 
 describe('Utils', () => {
   it('formatRating', () => {
