@@ -93,13 +93,13 @@ export function makeFakeFullOffer(): FullOffer {
     rating: faker.number.float({ min: 1, max: 5 }),
     description: faker.lorem.paragraph(),
     bedrooms: faker.number.int({ min: 1, max: 6 }),
-    goods: [faker.lorem.word()],
+    goods: Array.from({ length: faker.number.int({ min: 0, max: 10 }) }, () => faker.lorem.word()),
     host: {
       name: faker.person.fullName(),
       avatarUrl: faker.image.avatar(),
       isPro: faker.datatype.boolean()
     },
-    images: [faker.image.url()],
+    images: Array.from({ length: faker.number.int({ min: 0, max: 10 }) }, () => faker.image.url()),
     maxAdults: faker.number.int({ min: 1, max: 10 })
   };
 }

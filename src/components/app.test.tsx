@@ -6,6 +6,8 @@ import { makeFakeFullOffer, makeFakeOffer, makeFakeStore, makeFakeUser } from '.
 import { AppRoute, AuthorizationStatus, CITIES, RequestStatus } from '../const';
 
 describe('Application Routing', () => {
+  const scrollToMock = vi.fn();
+  window.scrollTo = scrollToMock;
   let mockHistory: MemoryHistory;
 
   beforeEach(() => {

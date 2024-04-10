@@ -5,7 +5,7 @@ import OffersList from './offers-list';
 import { CITIES, RequestStatus } from '../const';
 import { Offer } from '../types/offer';
 
-describe('Component: FavoritesList', () => {
+describe('Component: OffersList', () => {
   it('should render correctly while loading offers', () => {
     const offers: Offer[] = [];
     const cityName = CITIES[0];

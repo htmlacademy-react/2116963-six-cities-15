@@ -54,3 +54,5 @@ export const RATING_VALUES = [
   { value: 2, title: 'badly' },
   { value: 1, title: 'terribly' },
 ];
+
+export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';

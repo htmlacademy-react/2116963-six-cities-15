@@ -7,7 +7,7 @@ import { makeFakeStore } from '../mock/mock';
 import { withHistory, withStore } from '../mock/mock-component';
 import RandomLink from './random-link';
 
-describe('Component: Header', () => {
+describe('Component: RandomLink', () => {
   const mockHistory = createMemoryHistory();
 
   it('should render correctly', () => {

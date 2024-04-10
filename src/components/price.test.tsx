@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Price from './price';
 
-describe('Component: EmptyList', () => {
+describe('Component: Price', () => {
   it('should render correct with class place-card', () => {
     const className = 'place-card';
     const price = 400;

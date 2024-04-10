@@ -30,12 +30,12 @@ describe('Component: HeaderProfile', () => {
       },
     }));
 
-    render(withStoreComponent);
+    const {container} = render(withStoreComponent);
 
     if (userData) {
       expect(screen.getByRole('img')).toHaveAttribute('src', userData.avatarUrl);
       expect(screen.getByText(userData.email)).toBeInTheDocument();
-      expect(screen.getByText(favorites.length)).toBeInTheDocument();
+      expect(Number(container.querySelector('.header__favorite-count')?.textContent)).toBe(favorites.length);
     }
   });
 
