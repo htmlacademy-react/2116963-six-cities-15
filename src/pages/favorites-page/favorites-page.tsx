@@ -19,7 +19,7 @@ function FavoritesPage(): JSX.Element {
       <main className={classNames('page__main page__main--favorites', { 'page__main--favorites-empty': !offers.length })}>
         <div className="page__favorites-container container">
           <section className={classNames('favorites', { 'favorites--empty': !offers.length, })}>
-            <h1 className={classNames({ 'favorites__title': offers.length, 'visually-hidden': !offers.length, })}>
+            <h1 className={classNames(offers.length ? 'favorites__title' : 'visually-hidden')}>
               {offers.length ? 'Saved listing' : 'Favorites (empty)'}
             </h1>
             {offers.length ? <FavoritesList offers={offers} /> : <EmptyList classStart='favorites' />}

@@ -9,7 +9,7 @@ import { fetchFavorites } from '../store/thunks/favorites';
 import { logout } from '../store/thunks/user';
 import HeaderNavigation from './header-navigation';
 
-describe('Component: Card', () => {
+describe('Component: HeaderNavigation', () => {
   const mockHistory = createMemoryHistory();
 
   beforeEach(() => {
