@@ -5,14 +5,17 @@ import { ReviewToSend } from '../types/review';
 import { useActionCreators } from '../hooks/state';
 import { toast } from 'react-toastify';
 
-const TEXT_MIN_LENGTH = 50;
-const TEXT_MAX_LENGTH = 300;
+
+const TextLength = {
+  Min: 50,
+  Max: 300
+} as const;
 
 type ReviewFormProps = {
   offerId: string;
 }
 
-type Form = HTMLFormElement & {
+type ReviewForm = HTMLFormElement & {
   rating: RadioNodeList;
   review: HTMLTextAreaElement;
 }
@@ -23,16 +26,16 @@ function ReviewForm_({ offerId }: ReviewFormProps): JSX.Element {
   const { postReview } = useActionCreators(reviewsActions);
   const [isDisabled, setDisabled] = useState(false);
 
-  function handleFormChange(evt: React.FormEvent<HTMLFormElement>) {
-    const form = evt.currentTarget as Form;
+  function handleFormChange(evt: React.FormEvent<ReviewForm>) {
+    const form = evt.currentTarget;
     const rating = form.rating.value;
     const review = form.review.value;
-    setSubmitDisabled(review.length < TEXT_MIN_LENGTH || review.length > TEXT_MAX_LENGTH || !rating);
+    setSubmitDisabled(review.length < TextLength.Min || review.length > TextLength.Max || !rating);
   }
 
-  function handleFormSubmit(evt: React.FormEvent<HTMLFormElement>) {
+  function handleFormSubmit(evt: React.FormEvent<ReviewForm>) {
     evt.preventDefault();
-    const form = evt.currentTarget as Form;
+    const form = evt.currentTarget;
     const reviewToSend: ReviewToSend = {
       offerId,
       reviewInfo: {
@@ -83,7 +86,7 @@ function ReviewForm_({ offerId }: ReviewFormProps): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set
           <span className="reviews__star">rating</span> and describe your stay with
-          at least <b className="reviews__text-amount">{TEXT_MIN_LENGTH} characters</b>.
+          at least <b className="reviews__text-amount">{TextLength.Min} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"

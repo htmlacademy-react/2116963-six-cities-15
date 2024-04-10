@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Header from '../../components/header';
 import Loading from '../../components/loading/loading';
 import Map from '../../components/map';
-import { RequestStatus } from '../../const';
+import { OfferPageLimit, RequestStatus } from '../../const';
 import { useActionCreators, useAppSelector } from '../../hooks/state';
 import useScrollToTop from '../../hooks/use-scroll-to-top';
 import { offerActions, offerSelectors } from '../../store/slices/offer';
@@ -14,9 +14,6 @@ import Gallery from './gallery';
 import NearPlaces from './near-places';
 import OfferContainer from './offer-container';
 
-const IMAGES_LIMIT = 6;
-const NEAR_OFFERS_LIMIT = 3;
-
 function OfferPage(): JSX.Element {
   useScrollToTop();
   const { id: offerId } = useParams() as { id: string };
@@ -24,7 +21,7 @@ function OfferPage(): JSX.Element {
   const status = useAppSelector(offerSelectors.status);
   const offer = useAppSelector(offerSelectors.offer);
   const allNearOffers = useAppSelector(offerSelectors.nearOffers);
-  const nearOffers = useMemo(() => getNearOffers(allNearOffers, offerId, NEAR_OFFERS_LIMIT), [allNearOffers, offerId]);
+  const nearOffers = useMemo(() => getNearOffers(allNearOffers, offerId, OfferPageLimit.NearOffers), [allNearOffers, offerId]);
 
   useEffect(() => {
     if (status === RequestStatus.Idle) {
@@ -54,7 +51,7 @@ function OfferPage(): JSX.Element {
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
-          {Boolean(offer.images.length) && <Gallery images={offer.images} imagesLimit={IMAGES_LIMIT} />}
+          {Boolean(offer.images.length) && <Gallery images={offer.images} imagesLimit={OfferPageLimit.Images} />}
           <OfferContainer offer={offer} />
           <Map className="offer__map" offers={nearOffers} city={offer.city} currentOffer={offer} />
         </section>
