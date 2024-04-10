@@ -27,7 +27,7 @@ function ReviewsItem_({ review }: ReviewsItemProps) {
         <p className="reviews__text">
           {review.comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">
+        <time className="reviews__time" dateTime={review.date}>
           {formatDate(review.date)}
         </time>
       </div>

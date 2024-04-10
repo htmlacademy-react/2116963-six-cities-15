@@ -9,6 +9,7 @@ import './polyfills';
 import { getToken } from './services/token';
 import { store } from './store';
 import { userActions } from './store/slices/user';
+import { BrowserRouter } from 'react-router-dom';
 
 store.dispatch(
   getToken() ? userActions.checkAuthorization() : userActions.setAuthorization(AuthorizationStatus.NoAuth)
@@ -21,8 +22,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer position="top-center" />
-      <App />
+      <BrowserRouter>
+        <ToastContainer position="top-center" />
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

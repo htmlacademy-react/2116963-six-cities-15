@@ -1,16 +1,9 @@
 import React from 'react';
+import { RATING_VALUES } from '../const';
 
 type FormRatingProps = {
   isDisabled?: boolean;
 }
-
-const RATING_VALUES = [
-  { value: 5, title: 'perfect' },
-  { value: 4, title: 'good' },
-  { value: 3, title: 'not bad' },
-  { value: 2, title: 'badly' },
-  { value: 1, title: 'terribly' },
-];
 
 function FormRating({isDisabled = false}: FormRatingProps): JSX.Element {
   return (

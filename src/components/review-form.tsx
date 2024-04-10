@@ -37,7 +37,7 @@ function ReviewForm_({ offerId }: ReviewFormProps): JSX.Element {
       offerId,
       reviewInfo: {
         comment: form.review.value,
-        rating: +form.rating.value
+        rating: Number(form.rating.value)
       },
     };
     setDisabled(true);
@@ -61,7 +61,13 @@ function ReviewForm_({ offerId }: ReviewFormProps): JSX.Element {
   }
 
   return (
-    <form className="reviews__form form" action="#" method="post" onChange={handleFormChange} onSubmit={handleFormSubmit} ref={formRef}>
+    <form className="reviews__form form"
+      action="#"
+      method="post"
+      onChange={handleFormChange}
+      onSubmit={handleFormSubmit}
+      ref={formRef}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -77,7 +83,7 @@ function ReviewForm_({ offerId }: ReviewFormProps): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set
           <span className="reviews__star">rating</span> and describe your stay with
-          at least <b className="reviews__text-amount">50 characters</b>.
+          at least <b className="reviews__text-amount">{TEXT_MIN_LENGTH} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"

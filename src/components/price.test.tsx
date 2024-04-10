@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Price from './price';
 
-describe('Component: EmptyList', () => {
+describe('Component: Price', () => {
   it('should render correct with class place-card', () => {
     const className = 'place-card';
     const price = 400;
@@ -9,6 +9,7 @@ describe('Component: EmptyList', () => {
 
     render(<Price classStart={className} price={price} />);
 
+    expect(screen.getByText(new RegExp(`${price}`, 'i'))).toBeInTheDocument();
     expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
 
@@ -19,6 +20,7 @@ describe('Component: EmptyList', () => {
 
     render(<Price classStart={className} price={price} />);
 
+    expect(screen.getByText(new RegExp(`${price}`, 'i'))).toBeInTheDocument();
     expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
 });

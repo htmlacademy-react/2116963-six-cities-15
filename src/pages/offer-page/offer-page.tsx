@@ -55,7 +55,7 @@ function OfferPage(): JSX.Element {
       <main className="page__main page__main--offer">
         <section className="offer">
           {Boolean(offer.images.length) && <Gallery images={offer.images} imagesLimit={IMAGES_LIMIT} />}
-          <OfferContainer offer={offer} offerId={offerId} />
+          <OfferContainer offer={offer} />
           <Map className="offer__map" offers={nearOffers} city={offer.city} currentOffer={offer} />
         </section>
         {Boolean(nearOffers.length) && <NearPlaces offers={nearOffers} />}
