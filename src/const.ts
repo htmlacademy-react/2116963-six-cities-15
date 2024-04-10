@@ -45,7 +45,11 @@ export const enum RequestStatus {
   Failed
 }
 
-export const REVIEWS_LIMIT = 10;
+export const enum OfferPageLimit {
+  Images = 6,
+  Reviews = 10,
+  NearOffers = 3
+}
 
 export const RATING_VALUES = [
   { value: 5, title: 'perfect' },

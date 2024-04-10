@@ -1,11 +1,11 @@
 import { memo, useEffect, useMemo } from 'react';
-import { REVIEWS_LIMIT, RequestStatus } from '../const';
+import { OfferPageLimit, RequestStatus } from '../const';
 import { useActionCreators, useAppSelector } from '../hooks/state';
 import { reviewsActions, reviewsSelectors } from '../store/slices/reviews';
-import LoggedWrapper from './logged-wrapper';
 import Loading from './loading/loading';
-import ReviewsItem from './reviews-item';
+import LoggedWrapper from './logged-wrapper';
 import ReviewForm from './review-form';
+import ReviewsItem from './reviews-item';
 
 type ReviewsProps = {
   offerId: string;
@@ -14,7 +14,7 @@ type ReviewsProps = {
 function Reviews_({ offerId }: ReviewsProps) {
   const { fetchReviews, clear } = useActionCreators(reviewsActions);
   const sortedReviews = useAppSelector(reviewsSelectors.sortedReviews);
-  const reviews = useMemo(() => sortedReviews.slice(0, REVIEWS_LIMIT), [sortedReviews]);
+  const reviews = useMemo(() => sortedReviews.slice(0, OfferPageLimit.Reviews), [sortedReviews]);
 
   const status = useAppSelector(reviewsSelectors.status);
 
